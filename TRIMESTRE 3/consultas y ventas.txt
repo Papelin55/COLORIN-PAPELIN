@@ -1,0 +1,28 @@
+realizar venta
+
+-- Paso A: Crear el pedido y guardar su ID
+INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta)
+VALUES (4, NOW(), 1, 1, 'Local', '3000000000', 4500.00);
+
+SET @id = LAST_INSERT_ID();
+
+-- Paso B: Detalle del pedido (Descuenta automáticamente 3 unidades del stock)
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario) 
+VALUES (@id, 2, 3, 1500.00);
+
+-- Paso C: Registrar la Venta (Calcula cantidad de productos y genera factura única)
+INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+VALUES (@id, 4, NOW(), 4500.00, 0.00, 4500.00, 'Pagado', CONCAT('FACT-', FLOOR(RAND()*10000)));
+
+
+tablas
+
+-- Ver la fila creada en la tabla VENTAS (con cantidad de productos y factura)
+SELECT id_venta, id_pedido, id_usuario, cantidad_productos, total, estado_pago, numero_factura 
+FROM ventas 
+WHERE id_pedido = @id;
+
+-- Ver el stock restado en la tabla PRODUCTO
+SELECT id_producto, nombre, stock_actual 
+FROM producto 
+WHERE id_producto = 2;

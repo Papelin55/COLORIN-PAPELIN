@@ -1,0 +1,39 @@
+1. Ver productos con su nombre y precio
+sql
+SELECT nombre, precio_venta FROM producto;
+2. Ver productos con precio menor a 10000
+sql
+SELECT * FROM producto WHERE precio_venta < 10000;
+3. Contar total de productos
+sql
+SELECT COUNT(*) AS total_productos FROM producto;
+4. Ver usuarios con rol de Cliente (id_rol = 2)
+sql
+SELECT nombre, apellido, correo FROM usuario WHERE id_rol = 2;
+5.Ver todas las categorías
+sql
+SELECT nombre_categoria FROM categoria;
+6.Ver pedidos con su método de pago
+sql
+SELECT p.id_pedido, p.total_venta, m.nombre_metodo
+FROM pedidos p
+JOIN metodo_pago m ON p.id_metodo = m.id_metodo;
+7. Ver usuarios con su rol (nombre del rol)
+sql
+SELECT u.nombre, u.apellido, r.nombre_rol
+FROM usuario u
+JOIN roles r ON u.id_rol = r.id_rol;
+8. Ver los 2 productos más caros
+sql
+SELECT nombre, precio_venta FROM producto ORDER BY precio_venta DESC LIMIT 2;
+9. Ver cuántos pedidos tiene cada usuario
+sql
+SELECT u.nombre, COUNT(p.id_pedido) AS total_pedidos
+FROM usuario u
+LEFT JOIN pedidos p ON u.id_usuario = p.id_usuario
+GROUP BY u.id_usuario;
+10. Ver ventas ordenadas por fecha (más reciente primero)
+sql
+SELECT numero_factura, fecha_venta, total, estado_pago
+FROM ventas
+ORDER BY fecha_venta DESC;

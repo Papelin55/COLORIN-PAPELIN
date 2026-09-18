@@ -1,0 +1,137 @@
+Microsoft Windows [Versión 10.0.26100.8655]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\Aprendiz>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 712
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> USE actsql;
+Database changed
+MariaDB [actsql]> SELECT pro_nombre, pro_und_medida, pro_precio_unitario
+    -> FROM producto;
++---------------------+----------------+---------------------+
+| pro_nombre          | pro_und_medida | pro_precio_unitario |
++---------------------+----------------+---------------------+
+| Arroz Supremo       | Kilogramo      |            42000.00 |
+| Lenteja             | Libra          |             1000.00 |
+| Papel Higiénico     | Docena         |            20000.00 |
+| Jabón líquido       | Galón          |            25000.00 |
+| Cerveza Águila      | Six Pack       |            18000.00 |
+| Ron Viejo de Caldas | Botella        |            30000.00 |
+| Hamburguesas        | Caja x6        |            20000.00 |
+| Carne Molida        | Libra          |            15000.00 |
++---------------------+----------------+---------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [actsql]> SELECT pro_nombre, pro_precio_unitario
+    ->
+    -> FROM producto
+    -> WHERE pro_precio_unitario > 20000;
++---------------------+---------------------+
+| pro_nombre          | pro_precio_unitario |
++---------------------+---------------------+
+| Arroz Supremo       |            42000.00 |
+| Jabón líquido       |            25000.00 |
+| Ron Viejo de Caldas |            30000.00 |
++---------------------+---------------------+
+3 rows in set (0.000 sec)
+
+MariaDB [actsql]> SELECT pro_nombre, pro_precio_unitario
+    -> FROM producto
+    -> ORDER BY pro_precio_unitario DESC;
++---------------------+---------------------+
+| pro_nombre          | pro_precio_unitario |
++---------------------+---------------------+
+| Arroz Supremo       |            42000.00 |
+| Ron Viejo de Caldas |            30000.00 |
+| Jabón líquido       |            25000.00 |
+| Papel Higiénico     |            20000.00 |
+| Hamburguesas        |            20000.00 |
+| Cerveza Águila      |            18000.00 |
+| Carne Molida        |            15000.00 |
+| Lenteja             |             1000.00 |
++---------------------+---------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [actsql]> SELECT COUNT(*) AS total_productos
+    -> FROM producto;
++-----------------+
+| total_productos |
++-----------------+
+|               8 |
++-----------------+
+1 row in set (0.001 sec)
+
+MariaDB [actsql]> SELECT pro_nombre, pro_precio_unitario
+    -> FROM producto
+    -> WHERE pro_id_categoria = 1;
++---------------+---------------------+
+| pro_nombre    | pro_precio_unitario |
++---------------+---------------------+
+| Arroz Supremo |            42000.00 |
+| Lenteja       |             1000.00 |
++---------------+---------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [actsql]> SELECT SUM(vent_total_venta) AS ingresos_totales
+    -> FROM venta;
++------------------+
+| ingresos_totales |
++------------------+
+|        287000.00 |
++------------------+
+1 row in set (0.001 sec)
+
+MariaDB [actsql]> SELECT p.pro_nombre, d.deta_cantidad, d.deta_precio, d.deta_subtotal
+    -> FROM detalle_venta d
+    -> JOIN producto p ON d.deta_id_producto = p.id_producto
+    -> WHERE d.deta_id_venta = 1;
++----------------+---------------+-------------+---------------+
+| pro_nombre     | deta_cantidad | deta_precio | deta_subtotal |
++----------------+---------------+-------------+---------------+
+| Arroz Supremo  |             2 |    42000.00 |      84000.00 |
+| Cerveza Águila |             1 |    18000.00 |      18000.00 |
+| Carne Molida   |             3 |    15000.00 |      45000.00 |
++----------------+---------------+-------------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [actsql]> SELECT AVG(pro_precio_unitario) AS precio_promedio
+    -> FROM producto;
++-----------------+
+| precio_promedio |
++-----------------+
+|    21375.000000 |
++-----------------+
+1 row in set (0.000 sec)
+
+MariaDB [actsql]> SELECT pro_nombre, pro_precio_unitario
+    -> FROM producto
+    -> ORDER BY pro_precio_unitario DESC
+    -> LIMIT 1;
++---------------+---------------------+
+| pro_nombre    | pro_precio_unitario |
++---------------+---------------------+
+| Arroz Supremo |            42000.00 |
++---------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [actsql]> SELECT pro_nombre, pro_precio_unitario
+    -> FROM producto
+    -> ORDER BY pro_precio_unitario ASC
+    -> LIMIT 1;
++------------+---------------------+
+| pro_nombre | pro_precio_unitario |
++------------+---------------------+
+| Lenteja    |             1000.00 |
++------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [actsql]>

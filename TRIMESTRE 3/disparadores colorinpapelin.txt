@@ -1,0 +1,3191 @@
+Microsoft Windows [Versión 10.0.26200.8973]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\rojas>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root -h localhost -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 142
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use colorinpapelin
+Database changed
+MariaDB [colorinpapelin]> SELECT * FROM producto;
++-------------+--------------+--------------------------+---------------------------------+---------------+--------------+--------------+--------------+--------------+--------------+
+| id_producto | id_proveedor | nombre                   | descripcion                     | precio_compra | precio_venta | url_imagen   | stock_actual | stock_minimo | id_categoria |
++-------------+--------------+--------------------------+---------------------------------+---------------+--------------+--------------+--------------+--------------+--------------+
+|           1 |            1 | Cuaderno Norma 100 hojas | Cuaderno cuadriculado           |       6500.00 |      8500.00 | cuaderno.jpg |          120 |           20 |            1 |
+|           2 |            2 | Esfero Kilométrico Azul  | Bolígrafo tinta azul            |       1200.00 |      2000.00 | esfero.jpg   |          300 |           50 |            2 |
+|           3 |            3 | Resma Carta Reprograf    | Resma de papel carta x500 hojas |      18000.00 |     24000.00 | resma.jpg    |           60 |           10 |            3 |
++-------------+--------------+--------------------------+---------------------------------+---------------+--------------+--------------+--------------+--------------+--------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM usuario;
++------------+--------+-----------+---------------------------+------------+------------+---------------------+--------+
+| id_usuario | nombre | apellido  | correo                    | contraseña | telefono   | telefono_secundario | id_rol |
++------------+--------+-----------+---------------------------+------------+------------+---------------------+--------+
+|          1 | Juan   | Rodríguez | juan.rodriguez@gmail.com  | 1234       | 3104567890 | 3205678901          |      1 |
+|          2 | María  | González  | maria.gonzalez@gmail.com  | 1234       | 3116789012 | 3217890123          |      2 |
+|          3 | Carlos | Martínez  | carlos.martinez@gmail.com | 1234       | 3128901234 | 3229012345          |      3 |
++------------+--------+-----------+---------------------------+------------+------------+---------------------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM proveedor;
+ERROR 1146 (42S02): Table 'colorinpapelin.proveedor' doesn't exist
+MariaDB [colorinpapelin]> SELECT * FROM proveedor;
+ERROR 1146 (42S02): Table 'colorinpapelin.proveedor' doesn't exist
+MariaDB [colorinpapelin]> SELECT * FROM proveedores;
+ERROR 1146 (42S02): Table 'colorinpapelin.proveedores' doesn't exist
+MariaDB [colorinpapelin]> SELECT * FROM proovedores;
++----------------+------------------------------+-----------------+------------+-----------------------------------+
+| id_proveedores | nombre_empresa               | nombre_contacto | telefono   | correo                            |
++----------------+------------------------------+-----------------+------------+-----------------------------------+
+|              1 | Papeles Nacionales S.A.S.    | Andrés Gómez    | 3104567890 | ventas@papelesnacionales.com      |
+|              2 | Distribuidora Escolar Bogotá | Laura Pérez     | 3115678901 | contacto@distribuidoraescolar.com |
+|              3 | Suministros Capital S.A.S.   | Carlos Ramírez  | 3126789012 | pedidos@suministroscapital.com    |
++----------------+------------------------------+-----------------+------------+-----------------------------------+
+3 rows in set (0.000 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM categoria;
++--------------+------------------+
+| id_categoria | nombre_categoria |
++--------------+------------------+
+|            1 | Útiles Escolares |
+|            2 | Papelería        |
+|            3 | Oficina          |
++--------------+------------------+
+3 rows in set (0.000 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM descuentos;
++---------------+-------------------+--------------+------------+----------+----------------------+
+| id_descuentos | nombre            | fecha_inicio | fecha_fin  | estado   | porcentaje_descuento |
++---------------+-------------------+--------------+------------+----------+----------------------+
+|             1 | Regreso a Clases  | 2026-01-10   | 2026-02-28 | Activo   |                10.00 |
+|             2 | Cliente Frecuente | 2026-03-01   | 2026-12-31 | Activo   |                15.00 |
+|             3 | Fin de Año        | 2026-12-01   | 2026-12-31 | Inactivo |                20.00 |
++---------------+-------------------+--------------+------------+----------+----------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT nombre, stock_actual
+    -> FROM producto
+    -> WHERE stock_actual < 10;
+Empty set (0.000 sec)
+
+MariaDB [colorinpapelin]> SELECT nombre, precio_venta
+    -> FROM producto
+    -> WHERE precio_venta > 20000;
++-----------------------+--------------+
+| nombre                | precio_venta |
++-----------------------+--------------+
+| Resma Carta Reprograf |     24000.00 |
++-----------------------+--------------+
+1 row in set (0.017 sec)
+
+MariaDB [colorinpapelin]> SELECT nombre, precio_venta
+    -> FROM producto
+    -> ORDER BY precio_venta DESC;
++--------------------------+--------------+
+| nombre                   | precio_venta |
++--------------------------+--------------+
+| Resma Carta Reprograf    |     24000.00 |
+| Cuaderno Norma 100 hojas |      8500.00 |
+| Esfero Kilométrico Azul  |      2000.00 |
++--------------------------+--------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT COUNT(*) AS total_productos
+    -> FROM producto;
++-----------------+
+| total_productos |
++-----------------+
+|               3 |
++-----------------+
+1 row in set (0.000 sec)
+
+MariaDB [colorinpapelin]> SELECT AVG(precio_venta) AS precio_promedio
+    -> FROM producto;
++-----------------+
+| precio_promedio |
++-----------------+
+|    11500.000000 |
++-----------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT MAX(precio_venta) AS precio_maximo
+    -> FROM producto;
++---------------+
+| precio_maximo |
++---------------+
+|      24000.00 |
++---------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT MIN(precio_venta) AS precio_minimo
+    -> FROM producto;
++---------------+
+| precio_minimo |
++---------------+
+|       2000.00 |
++---------------+
+1 row in set (0.000 sec)
+
+MariaDB [colorinpapelin]> SELECT SUM(stock_actual * precio_venta) AS valor_inventario
+    -> FROM producto;
++------------------+
+| valor_inventario |
++------------------+
+|       3060000.00 |
++------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT p.nombre, c.nombre_categoria
+    -> FROM producto p
+    -> INNER JOIN categoria c
+    -> ON p.id_categoria = c.id_categoria;
++--------------------------+------------------+
+| nombre                   | nombre_categoria |
++--------------------------+------------------+
+| Cuaderno Norma 100 hojas | Útiles Escolares |
+| Esfero Kilométrico Azul  | Papelería        |
+| Resma Carta Reprograf    | Oficina          |
++--------------------------+------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT u.nombre, u.apellido, pe.id_pedido, pe.total_venta
+    -> FROM usuario u
+    -> INNER JOIN pedidos pe
+    -> ON u.id_usuario = pe.id_usuario;
++--------+-----------+-----------+-------------+
+| nombre | apellido  | id_pedido | total_venta |
++--------+-----------+-----------+-------------+
+| Juan   | Rodríguez |         1 |    25500.00 |
+| María  | González  |         2 |    24000.00 |
+| Carlos | Martínez  |         3 |    40000.00 |
++--------+-----------+-----------+-------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT pe.id_pedido, pr.nombre, dp.cantidad, dp.valor_total
+    -> FROM detalles_pedido dp
+    -> INNER JOIN producto pr
+    -> ON dp.id_producto = pr.id_producto
+    -> INNER JOIN pedidos pe
+    -> ON dp.id_pedido = pe.id_pedido;
++-----------+--------------------------+----------+-------------+
+| id_pedido | nombre                   | cantidad | valor_total |
++-----------+--------------------------+----------+-------------+
+|         1 | Cuaderno Norma 100 hojas |        3 |    25500.00 |
+|         3 | Esfero Kilométrico Azul  |       20 |    40000.00 |
+|         2 | Resma Carta Reprograf    |        1 |    24000.00 |
++-----------+--------------------------+----------+-------------+
+3 rows in set (0.017 sec)
+
+MariaDB [colorinpapelin]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| colorinpapelin     |
+| information_schema |
+| informe            |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| productos          |
+| test               |
++--------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> DESCRIBE producto;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| id_producto   | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_proveedor  | int(10)       | YES  | UNI | NULL    |                |
+| nombre        | varchar(150)  | NO   |     | NULL    |                |
+| descripcion   | varchar(500)  | YES  |     | NULL    |                |
+| precio_compra | decimal(10,2) | NO   |     | NULL    |                |
+| precio_venta  | decimal(10,2) | NO   |     | NULL    |                |
+| url_imagen    | varchar(255)  | YES  |     | NULL    |                |
+| stock_actual  | int(10)       | YES  |     | NULL    |                |
+| stock_minimo  | int(10)       | YES  |     | NULL    |                |
+| id_categoria  | int(10)       | NO   | UNI | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+10 rows in set (0.041 sec)
+
+MariaDB [colorinpapelin]> mysql -u root -p -D colorinpapelin -e "SELECT SUM(total_venta) AS total_ventas FROM pedidos;"
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'mysql -u root -p -D colorinpapelin -e "SELECT SUM(total_venta) AS total_venta...' at line 1
+MariaDB [colorinpapelin]> SELECT SUM(total_venta) AS total_ventas
+    -> FROM pedidos;
++--------------+
+| total_ventas |
++--------------+
+|     89500.00 |
++--------------+
+1 row in set (0.000 sec)
+
+MariaDB [colorinpapelin]> SELECT nombre, stock_actual
+    -> FROM producto
+    -> ORDER BY stock_actual ASC;
++--------------------------+--------------+
+| nombre                   | stock_actual |
++--------------------------+--------------+
+| Resma Carta Reprograf    |           60 |
+| Cuaderno Norma 100 hojas |          120 |
+| Esfero Kilométrico Azul  |          300 |
++--------------------------+--------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT p.nombre, c.nombre_categoria
+    -> FROM producto p
+    -> INNER JOIN categoria c
+    -> ON p.id_categoria = c.id_categoria;
++--------------------------+------------------+
+| nombre                   | nombre_categoria |
++--------------------------+------------------+
+| Cuaderno Norma 100 hojas | Útiles Escolares |
+| Esfero Kilométrico Azul  | Papelería        |
+| Resma Carta Reprograf    | Oficina          |
++--------------------------+------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SELECT
+    ->     u.nombre,
+    ->     u.apellido,
+    ->     pe.id_pedido,
+    ->     pe.total_venta
+    -> FROM usuario u
+    -> INNER JOIN pedidos pe
+    -> ON u.id_usuario = pe.id_usuario;
++--------+-----------+-----------+-------------+
+| nombre | apellido  | id_pedido | total_venta |
++--------+-----------+-----------+-------------+
+| Juan   | Rodríguez |         1 |    25500.00 |
+| María  | González  |         2 |    24000.00 |
+| Carlos | Martínez  |         3 |    40000.00 |
++--------+-----------+-----------+-------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT
+    ->     pe.id_pedido,
+    ->     pr.nombre,
+    ->     dp.cantidad,
+    ->     dp.valor_total
+    -> FROM detalles_pedido dp
+    -> INNER JOIN producto pr
+    -> ON dp.id_producto = pr.id_producto
+    -> INNER JOIN pedidos pe
+    -> ON dp.id_pedido = pe.id_pedido;
++-----------+--------------------------+----------+-------------+
+| id_pedido | nombre                   | cantidad | valor_total |
++-----------+--------------------------+----------+-------------+
+|         1 | Cuaderno Norma 100 hojas |        3 |    25500.00 |
+|         3 | Esfero Kilométrico Azul  |       20 |    40000.00 |
+|         2 | Resma Carta Reprograf    |        1 |    24000.00 |
++-----------+--------------------------+----------+-------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SHOW TABLES;
++--------------------------+
+| Tables_in_colorinpapelin |
++--------------------------+
+| carrito                  |
+| categoria                |
+| descuentos               |
+| detalles_pedido          |
+| logs                     |
+| metodo_pago              |
+| pedidos                  |
+| producto                 |
+| proovedores              |
+| roles                    |
+| usuario                  |
+| ventas                   |
++--------------------------+
+12 rows in set (0.002 sec)
+
+MariaDB [colorinpapelin]> SHOW TRIGGERS;
++------------------------------------+--------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger                            | Event  | Table           | Statement                                                                                                                                                                                      | Timing | Created                | sql_mode              | Definer        | character_set_client | collation_connection | Database Collation |
++------------------------------------+--------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------+----------------+----------------------+----------------------+--------------------+
+| calcular_total_detalle             | INSERT | detalles_pedido | BEGIN
+SET NEW.valor_total = NEW.cantidad * NEW.precio_unitario;
+END                                                    | BEFORE | 2026-08-02 18:23:48.29 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| validar_stock_dispoible            | INSERT | detalles_pedido | BEGIN
+DECLARE stock_disponible INT;
+SELECT stock_actual INTO stock_disponible
+FROM producto
+WHERE id_producto = NEW.id_producto;
+IF NEW.cantidad > stock_disponible THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: No hay stock para cubrir este pedido.';
+END IF;
+END                                 | BEFORE | 2026-08-02 18:23:48.32 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| descontar_stock_pedido             | INSERT | detalles_pedido | BEGIN
+UPDATE producto
+SET stock_actual = stock_actual - NEW.cantidad
+WHERE id_producto = NEW.id_producto;
+END          | AFTER  | 2026-08-02 18:23:48.30 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| actualizar_descuentos              | INSERT | pedidos         | BEGIN
+IF NEW.id_descuento IS NOT NULL THEN
+UPDATE descuentos
+SET estado = 'Inactivo'
+WHERE id_descuentos = NEW.id_descuento;
+END IF;
+END                                                                                                                                                                        | AFTER  | 2026-08-02 18:23:48.43 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| validar_valores_positivos_producto | INSERT | producto        | BEGIN
+IF NEW.precio_compra < 0 OR NEW.precio_venta < 0 THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: Los precios no pueden ser valores negativos.';
+ELSEIF NEW.stock_actual < 0 THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: El stock actual no puede ser negativo.';
+END IF;
+END          | BEFORE | 2026-08-02 18:23:48.48 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| Alerta_stock_bajo                  | UPDATE | producto        | BEGIN
+IF NEW.stock_actual <= NEW.stock_minimo
+AND OLD.stock_actual > OLD.stock_minimo THEN
+INSERT INTO logs(id_usuario, tipo_accion, fecha_movimiento)
+VALUES (
+1,
+CONCAT(
+'Alerta: El producto"',
+NEW.nombre,
+'"alcanzo el stock minimo. Quedan ',
+NEW.stock_actual,
+' unidades.'
+),
+NOW()
+);
+END IF;
+END      | AFTER  | 2026-08-02 18:23:48.47 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| nuevo_usuario_log                  | INSERT | usuario         | BEGIN
+INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+VALUES (NEW.id_usuario, 'Registro de nuevo usuario en el sistema', NOW());
+END                                                                                                                                                               | AFTER  | 2026-08-02 18:23:48.60 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| log_actualizacion_usuario          | UPDATE | usuario         | BEGIN
+INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+VALUES (NEW.id_usuario, 'Actualizacion de datos de perfil', NOW());
+END                                                                                                                                                                      | AFTER  | 2026-08-02 18:23:48.58 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| log_nueva_venta                    | INSERT | ventas          | BEGIN
+DECLARE usuario_id INT;
+SELECT id_usuarios INTO usuario_id
+FROM pedidos
+WHERE id_pedido = NEW.id_pedido;
+INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+VALUES (usuario_id, CONCAT('Venta registrada exitosamente - Factura N°: ', COALESCE(NEW.numero_factura, NEW.id_venta)), NOW());
+END | AFTER  | 2026-08-02 18:23:48.64 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| vaciar_carrito                     | INSERT | ventas          | BEGIN
+DELETE FROM carrito
+WHERE id_usuario = NEW.id_usuario;
+END                                                       | AFTER  | 2026-08-02 18:23:48.66 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
++------------------------------------+--------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------+----------------+----------------------+----------------------+--------------------+
+10 rows in set (0.040 sec)
+                          S
+    ->  [colorinpapelin]>
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'S' at line 1
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> describe tables:
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':' at line 1
+MariaDB [colorinpapelin]> describe all;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'all' at line 1
+MariaDB [colorinpapelin]> describe;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [colorinpapelin]> DESCRIBE usuario;
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| id_usuario          | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre              | varchar(100) | NO   |     | NULL    |                |
+| apellido            | varchar(100) | NO   |     | NULL    |                |
+| correo              | varchar(150) | NO   | UNI | NULL    |                |
+| contraseña          | varchar(255) | NO   |     | NULL    |                |
+| telefono            | varchar(20)  | YES  |     | NULL    |                |
+| telefono_secundario | varchar(20)  | YES  |     | NULL    |                |
+| id_rol              | int(10)      | NO   | UNI | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+8 rows in set (0.039 sec)
+
+MariaDB [colorinpapelin]> DESCRIBE carrito;
++----------------+----------+------+-----+---------+----------------+
+| Field          | Type     | Null | Key | Default | Extra          |
++----------------+----------+------+-----+---------+----------------+
+| id_carrito     | int(10)  | NO   | PRI | NULL    | auto_increment |
+| id_usuario     | int(10)  | NO   | UNI | NULL    |                |
+| fecha_creacion | datetime | YES  |     | NULL    |                |
+| id_producto    | int(10)  | NO   | UNI | NULL    |                |
+| cantidad       | int(10)  | NO   |     | NULL    |                |
++----------------+----------+------+-----+---------+----------------+
+5 rows in set (0.023 sec)
+
+MariaDB [colorinpapelin]> DESCRIBE categoria;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id_categoria     | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre_categoria | varchar(100) | NO   |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.038 sec)
+
+MariaDB [colorinpapelin]> describe descuentos
+    -> ;
++----------------------+--------------+------+-----+---------+----------------+
+| Field                | Type         | Null | Key | Default | Extra          |
++----------------------+--------------+------+-----+---------+----------------+
+| id_descuentos        | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre               | varchar(100) | NO   |     | NULL    |                |
+| fecha_inicio         | date         | NO   |     | NULL    |                |
+| fecha_fin            | date         | NO   |     | NULL    |                |
+| estado               | varchar(20)  | YES  |     | NULL    |                |
+| porcentaje_descuento | decimal(5,2) | NO   |     | NULL    |                |
++----------------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.023 sec)
+
+MariaDB [colorinpapelin]> describe detalle_pedido;
+ERROR 1146 (42S02): Table 'colorinpapelin.detalle_pedido' doesn't exist
+MariaDB [colorinpapelin]> describe detalles_pedido;
++-------------------+---------------+------+-----+---------+----------------+
+| Field             | Type          | Null | Key | Default | Extra          |
++-------------------+---------------+------+-----+---------+----------------+
+| id_detalle_pedido | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_pedido         | int(10)       | NO   | MUL | NULL    |                |
+| id_producto       | int(10)       | NO   | MUL | NULL    |                |
+| cantidad          | int(10)       | NO   |     | NULL    |                |
+| precio_unitario   | decimal(10,2) | NO   |     | NULL    |                |
+| estado_pedido     | varchar(50)   | YES  |     | NULL    |                |
+| valor_total       | decimal(10,2) | NO   |     | NULL    |                |
++-------------------+---------------+------+-----+---------+----------------+
+7 rows in set (0.036 sec)
+
+MariaDB [colorinpapelin]> describe logs;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id_log           | int(10)      | NO   | PRI | NULL    | auto_increment |
+| id_usuario       | int(10)      | NO   | UNI | NULL    |                |
+| tipo_accion      | varchar(100) | NO   |     | NULL    |                |
+| fecha_movimiento | datetime     | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.040 sec)
+
+MariaDB [colorinpapelin]> describe metodo_pago
+    -> ;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| id_metodo     | int(10)     | NO   | PRI | NULL    | auto_increment |
+| nombre_metodo | varchar(50) | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.041 sec)
+
+MariaDB [colorinpapelin]> describe pedido;
+ERROR 1146 (42S02): Table 'colorinpapelin.pedido' doesn't exist
+MariaDB [colorinpapelin]> describe pedidos;
++----------------------+---------------+------+-----+---------+----------------+
+| Field                | Type          | Null | Key | Default | Extra          |
++----------------------+---------------+------+-----+---------+----------------+
+| id_pedido            | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_usuario           | int(10)       | NO   | UNI | NULL    |                |
+| fecha_pedido         | datetime      | YES  |     | NULL    |                |
+| estado               | int(10)       | NO   |     | NULL    |                |
+| id_metodo            | int(10)       | NO   | MUL | NULL    |                |
+| comprobante_pago_url | varchar(255)  | YES  |     | NULL    |                |
+| direccion_envio      | varchar(255)  | NO   |     | NULL    |                |
+| telefono_envio       | varchar(20)   | NO   |     | NULL    |                |
+| id_descuento         | int(10)       | YES  | MUL | NULL    |                |
+| total_venta          | decimal(10,2) | NO   |     | NULL    |                |
++----------------------+---------------+------+-----+---------+----------------+
+10 rows in set (0.022 sec)
+
+MariaDB [colorinpapelin]> describe producto;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| id_producto   | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_proveedor  | int(10)       | YES  | UNI | NULL    |                |
+| nombre        | varchar(150)  | NO   |     | NULL    |                |
+| descripcion   | varchar(500)  | YES  |     | NULL    |                |
+| precio_compra | decimal(10,2) | NO   |     | NULL    |                |
+| precio_venta  | decimal(10,2) | NO   |     | NULL    |                |
+| url_imagen    | varchar(255)  | YES  |     | NULL    |                |
+| stock_actual  | int(10)       | YES  |     | NULL    |                |
+| stock_minimo  | int(10)       | YES  |     | NULL    |                |
+| id_categoria  | int(10)       | NO   | UNI | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+10 rows in set (0.038 sec)
+
+MariaDB [colorinpapelin]> describe proovedores;
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id_proveedores  | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre_empresa  | varchar(150) | NO   |     | NULL    |                |
+| nombre_contacto | varchar(100) | YES  |     | NULL    |                |
+| telefono        | varchar(20)  | YES  |     | NULL    |                |
+| correo          | varchar(150) | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.041 sec)
+
+MariaDB [colorinpapelin]> describe roles;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| id_rol     | int(10)     | NO   | PRI | NULL    |       |
+| nombre_rol | varchar(50) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+2 rows in set (0.042 sec)
+
+MariaDB [colorinpapelin]> describe usuario;
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| id_usuario          | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre              | varchar(100) | NO   |     | NULL    |                |
+| apellido            | varchar(100) | NO   |     | NULL    |                |
+| correo              | varchar(150) | NO   | UNI | NULL    |                |
+| contraseña          | varchar(255) | NO   |     | NULL    |                |
+| telefono            | varchar(20)  | YES  |     | NULL    |                |
+| telefono_secundario | varchar(20)  | YES  |     | NULL    |                |
+| id_rol              | int(10)      | NO   | UNI | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+8 rows in set (0.038 sec)
+
+MariaDB [colorinpapelin]> describe ventas;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| id_venta       | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_pedido      | int(10)       | NO   | UNI | NULL    |                |
+| id_usuario     | int(10)       | NO   | MUL | NULL    |                |
+| fecha_venta    | datetime      | NO   |     | NULL    |                |
+| subtotal       | decimal(10,2) | NO   |     | NULL    |                |
+| descuentos     | decimal(10,2) | YES  |     | NULL    |                |
+| total          | decimal(10,2) | NO   |     | NULL    |                |
+| estado_pago    | varchar(50)   | NO   |     | NULL    |                |
+| numero_factura | varchar(100)  | YES  | UNI | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.038 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM usuario;
++------------+--------+-----------+---------------------------+------------+------------+---------------------+--------+
+| id_usuario | nombre | apellido  | correo                    | contraseña | telefono   | telefono_secundario | id_rol |
++------------+--------+-----------+---------------------------+------------+------------+---------------------+--------+
+|          1 | Juan   | Rodríguez | juan.rodriguez@gmail.com  | 1234       | 3104567890 | 3205678901          |      1 |
+|          2 | María  | González  | maria.gonzalez@gmail.com  | 1234       | 3116789012 | 3217890123          |      2 |
+|          3 | Carlos | Martínez  | carlos.martinez@gmail.com | 1234       | 3128901234 | 3229012345          |      3 |
++------------+--------+-----------+---------------------------+------------+------------+---------------------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM producto;
++-------------+--------------+--------------------------+---------------------------------+---------------+--------------+--------------+--------------+--------------+--------------+
+| id_producto | id_proveedor | nombre                   | descripcion                     | precio_compra | precio_venta | url_imagen   | stock_actual | stock_minimo | id_categoria |
++-------------+--------------+--------------------------+---------------------------------+---------------+--------------+--------------+--------------+--------------+--------------+
+|           1 |            1 | Cuaderno Norma 100 hojas | Cuaderno cuadriculado           |       6500.00 |      8500.00 | cuaderno.jpg |          120 |           20 |            1 |
+|           2 |            2 | Esfero Kilométrico Azul  | Bolígrafo tinta azul            |       1200.00 |      2000.00 | esfero.jpg   |          300 |           50 |            2 |
+|           3 |            3 | Resma Carta Reprograf    | Resma de papel carta x500 hojas |      18000.00 |     24000.00 | resma.jpg    |           60 |           10 |            3 |
++-------------+--------------+--------------------------+---------------------------------+---------------+--------------+--------------+--------------+--------------+--------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM pedidos;
++-----------+------------+---------------------+--------+-----------+----------------------+-------------------------------+----------------+--------------+-------------+
+| id_pedido | id_usuario | fecha_pedido        | estado | id_metodo | comprobante_pago_url | direccion_envio               | telefono_envio | id_descuento | total_venta |
++-----------+------------+---------------------+--------+-----------+----------------------+-------------------------------+----------------+--------------+-------------+
+|         1 |          1 | 2026-07-01 00:00:00 |      1 |         1 | comprobante1.jpg     | Calle 53 #30-25, Bogotá       | 3104567890     |            1 |    25500.00 |
+|         2 |          2 | 2026-07-02 00:00:00 |      1 |         2 | comprobante2.jpg     | Carrera 15 #72-40, Bogotá     | 3116789012     |            2 |    24000.00 |
+|         3 |          3 | 2026-07-03 00:00:00 |      1 |         1 | comprobante3.jpg     | Avenida Boyacá #45-67, Bogotá | 3128901234     |            3 |    40000.00 |
++-----------+------------+---------------------+--------+-----------+----------------------+-------------------------------+----------------+--------------+-------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM descuentos;
++---------------+-------------------+--------------+------------+----------+----------------------+
+| id_descuentos | nombre            | fecha_inicio | fecha_fin  | estado   | porcentaje_descuento |
++---------------+-------------------+--------------+------------+----------+----------------------+
+|             1 | Regreso a Clases  | 2026-01-10   | 2026-02-28 | Activo   |                10.00 |
+|             2 | Cliente Frecuente | 2026-03-01   | 2026-12-31 | Activo   |                15.00 |
+|             3 | Fin de Año        | 2026-12-01   | 2026-12-31 | Inactivo |                20.00 |
++---------------+-------------------+--------------+------------+----------+----------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM metodo_pago;
++-----------+---------------+
+| id_metodo | nombre_metodo |
++-----------+---------------+
+|         1 | Efectivo      |
+|         2 | Nequi         |
++-----------+---------------+
+2 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3009999999'
+    -> WHERE id_usuario = 1;
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_usuario'
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (nombre, apellido, correo, contraseña, telefono, telefono_secundario, id_rol)
+    -> VALUES
+    -> ('Pedro', 'Ramirez', 'pedro.ramirez@gmail.com', '1234', '3001112233', '3001112244', 1);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_rol'
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (nombre, apellido, correo, contraseña, telefono, telefono_secundario, id_rol)
+    -> VALUES
+    -> ('Pedro', 'Ramirez', 'pedro.ramirez@gmail.com', '1234', '3001112233', '3001112244', 1);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_rol'
+MariaDB [colorinpapelin]> }
+    ->
+    ->
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '}' at line 1
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (nombre, apellido, correo, contraseña, telefono, telefono_secundario, id_rol)
+    -> VALUES
+    -> ('Pedro', 'Ramirez', 'pedro.ramirez@gmail.com', '1234', '3001112233', '3001112244', 1);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_rol'
+MariaDB [colorinpapelin]> ;
+ERROR: No query specified
+
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3008887777'
+    -> WHERE id_usuario = 1;
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_usuario'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> :
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':' at line 1
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido
+    -> (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido, valor_total)
+    -> VALUES
+    -> (4, 4, 2, 4000, 'Pendiente', 0);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`detalles_pedido`, CONSTRAINT `fk_de_` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]> ;
+ERROR: No query specified
+
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido
+    -> (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido, valor_total)
+    -> VALUES
+    -> (4, 4, 2, 4000, 'Pendiente', 0);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`detalles_pedido`, CONSTRAINT `fk_de_` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]> ;
+ERROR: No query specified
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> show triggers;
++------------------------------------+--------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger                            | Event  | Table           | Statement                                                                                                                                                                                      | Timing | Created                | sql_mode              | Definer        | character_set_client | collation_connection | Database Collation |
++------------------------------------+--------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------+----------------+----------------------+----------------------+--------------------+
+| calcular_total_detalle             | INSERT | detalles_pedido | BEGIN
+SET NEW.valor_total = NEW.cantidad * NEW.precio_unitario;
+END                                                    | BEFORE | 2026-08-02 18:23:48.29 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| validar_stock_dispoible            | INSERT | detalles_pedido | BEGIN
+DECLARE stock_disponible INT;
+SELECT stock_actual INTO stock_disponible
+FROM producto
+WHERE id_producto = NEW.id_producto;
+IF NEW.cantidad > stock_disponible THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: No hay stock para cubrir este pedido.';
+END IF;
+END                                 | BEFORE | 2026-08-02 18:23:48.32 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| descontar_stock_pedido             | INSERT | detalles_pedido | BEGIN
+UPDATE producto
+SET stock_actual = stock_actual - NEW.cantidad
+WHERE id_producto = NEW.id_producto;
+END          | AFTER  | 2026-08-02 18:23:48.30 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| actualizar_descuentos              | INSERT | pedidos         | BEGIN
+IF NEW.id_descuento IS NOT NULL THEN
+UPDATE descuentos
+SET estado = 'Inactivo'
+WHERE id_descuentos = NEW.id_descuento;
+END IF;
+END                                                                                                                                                                        | AFTER  | 2026-08-02 18:23:48.43 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| validar_valores_positivos_producto | INSERT | producto        | BEGIN
+IF NEW.precio_compra < 0 OR NEW.precio_venta < 0 THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: Los precios no pueden ser valores negativos.';
+ELSEIF NEW.stock_actual < 0 THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: El stock actual no puede ser negativo.';
+END IF;
+END          | BEFORE | 2026-08-02 18:23:48.48 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| Alerta_stock_bajo                  | UPDATE | producto        | BEGIN
+IF NEW.stock_actual <= NEW.stock_minimo
+AND OLD.stock_actual > OLD.stock_minimo THEN
+INSERT INTO logs(id_usuario, tipo_accion, fecha_movimiento)
+VALUES (
+1,
+CONCAT(
+'Alerta: El producto"',
+NEW.nombre,
+'"alcanzo el stock minimo. Quedan ',
+NEW.stock_actual,
+' unidades.'
+),
+NOW()
+);
+END IF;
+END      | AFTER  | 2026-08-02 18:23:48.47 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| nuevo_usuario_log                  | INSERT | usuario         | BEGIN
+INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+VALUES (NEW.id_usuario, 'Registro de nuevo usuario en el sistema', NOW());
+END                                                                                                                                                               | AFTER  | 2026-08-02 18:23:48.60 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| log_actualizacion_usuario          | UPDATE | usuario         | BEGIN
+INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+VALUES (NEW.id_usuario, 'Actualizacion de datos de perfil', NOW());
+END                                                                                                                                                                      | AFTER  | 2026-08-02 18:23:48.58 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| log_nueva_venta                    | INSERT | ventas          | BEGIN
+DECLARE usuario_id INT;
+SELECT id_usuarios INTO usuario_id
+FROM pedidos
+WHERE id_pedido = NEW.id_pedido;
+INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+VALUES (usuario_id, CONCAT('Venta registrada exitosamente - Factura N°: ', COALESCE(NEW.numero_factura, NEW.id_venta)), NOW());
+END | AFTER  | 2026-08-02 18:23:48.64 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
+| vaciar_carrito                     | INSERT | ventas          | BEGIN
+DELETE FROM carrito
+WHERE id_usuario = NEW.id_usuario;
+END                                                       | AFTER  | 2026-08-02 18:23:48.66 | NO_AUTO_VALUE_ON_ZERO | root@localhost | utf8mb4              | utf8mb4_general_ci   | utf8mb4_general_ci |
++------------------------------------+--------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------+----------------+----------------------+----------------------+--------------------+
+10 rows in set (0.025 sec)
+
+MariaDB [colorinpapelin]> INSERT INTO producto
+    -> (id_producto,nombre,precio_compra,precio_venta,stock_actual,stock_minimo,id_categoria,id_proveedor)
+    -> VALUES
+    -> (998,'Producto Prueba',1000,2000,-5,5,1,1);
+ERROR 1644 (45000): ERROR: El stock actual no puede ser negativo.
+MariaDB [colorinpapelin]> INSERT INTO producto
+    -> (id_producto,nombre,precio_compra,precio_venta,stock_actual,stock_minimo,id_categoria,id_proveedor)
+    -> VALUES
+    -> (999,'Producto Prueba',-1000,2000,10,5,1,1);
+ERROR 1644 (45000): ERROR: Los precios no pueden ser valores negativos.
+MariaDB [colorinpapelin]> ;
+ERROR: No query specified
+
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (id_usuario,nombre,apellido,telefono,email,password,id_rol)
+    -> VALUES
+    -> (999,'Camilo','Rojas','3001234567','camilo_prueba@gmail.com','123456',1);
+ERROR 1054 (42S22): Unknown column 'email' in 'field list'
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY fecha_movimiento DESC;
++--------+------------+--------------------+---------------------+
+| id_log | id_usuario | tipo_accion        | fecha_movimiento    |
++--------+------------+--------------------+---------------------+
+|      3 |          3 | Cierre de sesión   | 2026-07-03 17:45:00 |
+|      2 |          2 | Registro de pedido | 2026-07-02 10:30:00 |
+|      1 |          1 | Inicio de sesión   | 2026-07-01 08:15:00 |
++--------+------------+--------------------+---------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (id_usuario,nombre,apellido,telefono,email,password,id_rol)
+    -> VALUES
+    -> (999,'Camilo','Rojas','3001234567','camilo_prueba@gmail.com','123456',1);
+ERROR 1054 (42S22): Unknown column 'email' in 'field list'
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (id_usuario,nombre,apellido,telefono,correo,password,id_rol)
+    -> VALUES
+    -> (999,'Camilo','Rojas','3001234567','camilo_prueba@gmail.com','123456',1);
+ERROR 1054 (42S22): Unknown column 'password' in 'field list'
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (id_usuario,nombre,apellido,telefono,email,contraseña,id_rol)
+    -> VALUES
+    -> (999,'Camilo','Rojas','3001234567','camilo_prueba@gmail.com','123456',1);
+ERROR 1054 (42S22): Unknown column 'email' in 'field list'
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (id_usuario,nombre,apellido,telefono,correo,contraseña,id_rol)
+    -> VALUES
+    -> (999,'Camilo','Rojas','3001234567','camilo_prueba@gmail.com','123456',1);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_rol'
+MariaDB [colorinpapelin]> DESCRIBE usuario;
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| id_usuario          | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre              | varchar(100) | NO   |     | NULL    |                |
+| apellido            | varchar(100) | NO   |     | NULL    |                |
+| correo              | varchar(150) | NO   | UNI | NULL    |                |
+| contraseña          | varchar(255) | NO   |     | NULL    |                |
+| telefono            | varchar(20)  | YES  |     | NULL    |                |
+| telefono_secundario | varchar(20)  | YES  |     | NULL    |                |
+| id_rol              | int(10)      | NO   | UNI | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+8 rows in set (0.038 sec)
+
+MariaDB [colorinpapelin]> SHOW CREATE TABLE usuario;
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                         |
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| usuario | CREATE TABLE `usuario` (
+  `id_usuario` int(10) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `correo` varchar(150) NOT NULL,
+  `contraseña` varchar(255) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `telefono_secundario` varchar(20) DEFAULT NULL,
+  `id_rol` int(10) NOT NULL,
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `correo` (`correo`),
+  UNIQUE KEY `id_rol` (`id_rol`),
+  CONSTRAINT `re_us_rol` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id_rol`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [colorinpapelin]> ALTER TABLE usuario
+    -> DROP INDEX id_rol;
+ERROR 1553 (HY000): Cannot drop index 'id_rol': needed in a foreign key constraint
+MariaDB [colorinpapelin]> CONSTRAINT re_us_rol FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CONSTRAINT re_us_rol FOREIGN KEY (id_rol) REFERENCES roles(id_rol)' at line 1
+MariaDB [colorinpapelin]> ;
+ERROR: No query specified
+
+MariaDB [colorinpapelin]> CONSTRAINT re_us_rol FOREIGN KEY (id_rol) REFERENCES roles(id_rol);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CONSTRAINT re_us_rol FOREIGN KEY (id_rol) REFERENCES roles(id_rol)' at line 1
+MariaDB [colorinpapelin]> ALTER TABLE usuario
+    -> DROP INDEX id_rol;
+ERROR 1553 (HY000): Cannot drop index 'id_rol': needed in a foreign key constraint
+MariaDB [colorinpapelin]> ALTER TABLE usuario
+    -> ADD CONSTRAINT re_us_rol
+    -> FOREIGN KEY (id_rol)
+    -> REFERENCES roles(id_rol);
+ERROR 1072 (42000): Key column 'id_rol' doesn't exist in table
+MariaDB [colorinpapelin]> ALTER TABLE usuario
+    -> ADD INDEX idx_id_rol (id_rol);
+ERROR 1072 (42000): Key column 'id_rol' doesn't exist in table
+MariaDB [colorinpapelin]> ALTER TABLE usuario
+    -> ADD COLUMN id_rol INT(10) NOT NULL;
+Query OK, 0 rows affected (0.025 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> ALTER TABLE usuario
+    -> ADD INDEX idx_id_rol (id_rol);
+Query OK, 0 rows affected (0.030 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> ALTER TABLE usuario
+    -> ADD CONSTRAINT re_us_rol
+    -> FOREIGN KEY (id_rol)
+    -> REFERENCES roles(id_rol);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`#sql-7594_8e`, CONSTRAINT `re_us_rol` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id_rol`))
+MariaDB [colorinpapelin]> SELECT * FROM roles;
++--------+---------------+
+| id_rol | nombre_rol    |
++--------+---------------+
+|      1 | Administrador |
+|      2 | Cliente       |
+|      3 | Empleado      |
++--------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT id_usuario, nombre, id_rol
+    -> FROM usuario;
++------------+--------+--------+
+| id_usuario | nombre | id_rol |
++------------+--------+--------+
+|          1 | Juan   |      0 |
+|          2 | María  |      0 |
+|          3 | Carlos |      0 |
++------------+--------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET id_rol =
+    -> CASE id_usuario
+    ->     WHEN 1 THEN 1
+    ->     WHEN 2 THEN 2
+    ->     WHEN 3 THEN 3
+    -> END
+    -> WHERE id_usuario IN (1,2,3);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_usuario'
+MariaDB [colorinpapelin]> SHOW INDEX FROM usuario;
++---------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table   | Non_unique | Key_name   | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++---------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| usuario |          0 | PRIMARY    |            1 | id_usuario  | A         |           3 |     NULL | NULL   |      | BTREE      |         |               |
+| usuario |          0 | correo     |            1 | correo      | A         |           3 |     NULL | NULL   |      | BTREE      |         |               |
+| usuario |          1 | idx_id_rol |            1 | id_rol      | A         |           3 |     NULL | NULL   |      | BTREE      |         |               |
++---------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+3 rows in set (0.001 sec)
+                          SHOW CREATE TABLE usuario;
++---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                   |
++---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| usuario | CREATE TABLE `usuario` (
+  `id_usuario` int(10) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `correo` varchar(150) NOT NULL,
+  `contraseña` varchar(255) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `telefono_secundario` varchar(20) DEFAULT NULL,
+  `id_rol` int(10) NOT NULL,
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `correo` (`correo`),
+  KEY `idx_id_rol` (`id_rol`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET id_rol = 1
+    -> WHERE id_usuario = 1;
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_usuario'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET id_rol = 2
+    -> WHERE id_usuario = 2;
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_usuario'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET id_rol = 3
+    -> WHERE id_usuario = 3;
+ERROR 1062 (23000): Duplicate entry '3' for key 'id_usuario'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> CREATE TABLE usuario_backup AS
+    -> SELECT * FROM usuario;
+Query OK, 3 rows affected (0.015 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> Bye
+Ctrl-C -- exit!
+
+C:\xampp\mysql\bin>-- 1. Renombrar la tabla actual
+"--" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>RENAME TABLE usuario TO usuario_old;
+La sintaxis del comando no es correcta.
+
+C:\xampp\mysql\bin>
+C:\xampp\mysql\bin>-- 2. Crear la tabla correctamente
+"--" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>CREATE TABLE usuario (
+"CREATE" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    id_usuario INT(10) NOT NULL AUTO_INCREMENT,
+"id_usuario" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    nombre VARCHAR(100) NOT NULL,
+"nombre" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    apellido VARCHAR(100) NOT NULL,
+"apellido" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    correo VARCHAR(150) NOT NULL,
+"correo" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    contraseña VARCHAR(255) NOT NULL,
+"contraseña" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    telefono VARCHAR(20),
+"telefono" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    telefono_secundario VARCHAR(20),
+"telefono_secundario" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    id_rol INT(10) NOT NULL,
+"id_rol" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    PRIMARY KEY (id_usuario),
+"PRIMARY" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    UNIQUE KEY correo (correo),
+"UNIQUE" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    INDEX idx_id_rol (id_rol),
+"INDEX" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>    CONSTRAINT re_us_rol
+"CONSTRAINT" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>        FOREIGN KEY (id_rol)
+"FOREIGN" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>        REFERENCES roles(id_rol)
+"REFERENCES" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+C:\xampp\mysql\bin>
+C:\xampp\mysql\bin>;
+C:\xampp\mysql\bin>DROP TABLE usuario;
+"DROP" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>DROP TABLE usuario;
+"DROP" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>CREATE TABLE usuario_backup AS
+"CREATE" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>SELECT * FROM usuario;
+"SELECT" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 457
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use colorinpapelin
+Database changed
+MariaDB [colorinpapelin]> CREATE TABLE usuario_backup AS
+    -> SELECT * FROM usuario;
+Query OK, 3 rows affected (0.030 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> DROP TABLE usuario;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails
+MariaDB [colorinpapelin]> SET FOREIGN_KEY_CHECKS = 0;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> DROP TABLE usuario;
+Query OK, 0 rows affected (0.009 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET FOREIGN_KEY_CHECKS = 1;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]> DROP TABLE usuario;
+ERROR 1051 (42S02): Unknown table 'colorinpapelin.usuario'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> CREATE TABLE usuario (
+    ->     id_usuario INT(10) NOT NULL AUTO_INCREMENT,
+    ->     nombre VARCHAR(100) NOT NULL,
+    ->     apellido VARCHAR(100) NOT NULL,
+    ->     correo VARCHAR(150) NOT NULL,
+    ->     contraseña VARCHAR(255) NOT NULL,
+    ->     telefono VARCHAR(20) DEFAULT NULL,
+    ->     telefono_secundario VARCHAR(20) DEFAULT NULL,
+    ->     id_rol INT(10) NOT NULL,
+    ->
+    ->     PRIMARY KEY (id_usuario),
+    ->     UNIQUE KEY correo (correo),
+    ->     INDEX idx_id_rol (id_rol),
+    ->
+    ->     CONSTRAINT re_us_rol
+    ->         FOREIGN KEY (id_rol)
+    ->         REFERENCES roles(id_rol)
+    -> ) ENGINE=InnoDB
+    -> DEFAULT CHARSET=utf8mb4
+    -> COLLATE=utf8mb4_general_ci;
+Query OK, 0 rows affected (0.037 sec)
+
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (id_usuario, nombre, apellido, correo, contraseña, telefono, telefono_secundario, id_rol)
+    -> SELECT
+    ->     id_usuario,
+    ->     nombre,
+    ->     apellido,
+    ->     correo,
+    ->     contraseña,
+    ->     telefono,
+    ->     telefono_secundario,
+    ->     CASE id_usuario
+    ->         WHEN 1 THEN 1
+    ->         WHEN 2 THEN 2
+    ->         WHEN 3 THEN 3
+    ->         ELSE 2
+    ->     END
+    -> FROM usuario_backup;
+Query OK, 3 rows affected (0.003 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> SELECT * FROM usuario;
++------------+--------+-----------+---------------------------+------------+------------+---------------------+--------+
+| id_usuario | nombre | apellido  | correo                    | contraseña | telefono   | telefono_secundario | id_rol |
++------------+--------+-----------+---------------------------+------------+------------+---------------------+--------+
+|          1 | Juan   | Rodríguez | juan.rodriguez@gmail.com  | 1234       | 3104567890 | 3205678901          |      1 |
+|          2 | María  | González  | maria.gonzalez@gmail.com  | 1234       | 3116789012 | 3217890123          |      2 |
+|          3 | Carlos | Martínez  | carlos.martinez@gmail.com | 1234       | 3128901234 | 3229012345          |      3 |
++------------+--------+-----------+---------------------------+------------+------------+---------------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [colorinpapelin]> INSERT INTO usuario
+    -> (nombre, apellido, correo, contraseña, telefono, telefono_secundario, id_rol)
+    -> VALUES
+    -> ('Camilo', 'Rojas', 'camilo.rojas@gmail.com', '123456', '3001234567', NULL, 2);
+Query OK, 1 row affected (0.021 sec)
+
+MariaDB [colorinpapelin]> SELECT *
+    -> FROM logs
+    -> ORDER BY fecha_movimiento DESC;
++--------+------------+--------------------+---------------------+
+| id_log | id_usuario | tipo_accion        | fecha_movimiento    |
++--------+------------+--------------------+---------------------+
+|      3 |          3 | Cierre de sesión   | 2026-07-03 17:45:00 |
+|      2 |          2 | Registro de pedido | 2026-07-02 10:30:00 |
+|      1 |          1 | Inicio de sesión   | 2026-07-01 08:15:00 |
++--------+------------+--------------------+---------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- Prueba exitosa (se calcula valor_total = 2 * 8500 = 17000):
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (1, 1, 2, 8500.00, 'Pendiente');
+ERROR 1062 (23000): Duplicate entry '1-1' for key 'id_pedido'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Prueba de fallo por falta de stock (si la cantidad supera stock_actual):
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (1, 3, 999, 24000.00, 'Pendiente');
+ERROR 1644 (45000): ERROR: No hay stock para cubrir este pedido.
+MariaDB [colorinpapelin]> -- Resultado: Detiene la inserción y muestra el mensaje 'ERROR: No hay stock para cubrir este pedido.'
+MariaDB [colorinpapelin]> :
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':' at line 1
+MariaDB [colorinpapelin]> -- Prueba exitosa (se calcula valor_total = 2 * 8500 = 17000):
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (1, 1, 2, 8500.00, 'Pendiente');
+ERROR 1062 (23000): Duplicate entry '1-1' for key 'id_pedido'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Prueba de fallo por falta de stock (si la cantidad supera stock_actual):
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (1, 3, 999, 24000.00, 'Pendiente');
+ERROR 1644 (45000): ERROR: No hay stock para cubrir este pedido.
+MariaDB [colorinpapelin]> -- Resultado: Detiene la inserción y muestra el mensaje 'ERROR: No hay stock para cubrir este pedido.'-- 1. Consultar el stock antes de insertar:
+MariaDB [colorinpapelin]> SELECT stock_actual FROM producto WHERE id_producto = 1;
++--------------+
+| stock_actual |
++--------------+
+|          120 |
++--------------+
+1 row in set (0.003 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Insertar un detalle:
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (1, 1, 5, 8500.00, 'Pendiente');
+ERROR 1062 (23000): Duplicate entry '1-1' for key 'id_pedido'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Verificar que el stock haya disminuido en 5 unidades:
+MariaDB [colorinpapelin]> SELECT stock_actual FROM producto WHERE id_producto = 1;
++--------------+
+| stock_actual |
++--------------+
+|          120 |
++--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT id_usuarios INTO usuario_id FROM pedidos WHERE id_pedido = NEW.id_pedido;
+ERROR 1327 (42000): Undeclared variable: usuario_id
+MariaDB [colorinpapelin]> DELIMITER $$
+MariaDB [colorinpapelin]> CREATE TRIGGER `log_nueva_venta` AFTER INSERT ON `ventas` FOR EACH ROW
+    -> BEGIN
+    ->     DECLARE usuario_id INT;
+    ->     SELECT id_usuario INTO usuario_id
+    ->     FROM pedidos
+    ->     WHERE id_pedido = NEW.id_pedido;
+    ->
+    ->     INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+    ->     VALUES (
+    ->         usuario_id,
+    ->         CONCAT('Venta registrada exitosamente - Factura N°: ', COALESCE(NEW.numero_factura, NEW.id_venta)),
+    ->         NOW()
+    ->     );
+    -> END$$
+ERROR 1359 (HY000): Trigger 'colorinpapelin.log_nueva_venta' already exists
+MariaDB [colorinpapelin]> DELIMITER ;
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (1, 1, 999, 8500.00, 'Pendiente');
+ERROR 1644 (45000): ERROR: No hay stock para cubrir este pedido.
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 1;
++-------------+--------------------------+--------------+
+| id_producto | nombre                   | stock_actual |
++-------------+--------------------------+--------------+
+|           1 | Cuaderno Norma 100 hojas |          120 |
++-------------+--------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (4, 1, 2, 8500.00, 'Pendiente');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`detalles_pedido`, CONSTRAINT `fk_de_` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (4, 1, 2, 8500.00, 'Pendiente');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`detalles_pedido`, CONSTRAINT `fk_de_` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]> SELECT * FROM detalles_pedido WHERE id_pedido = 4;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]>  SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 1;
++-------------+--------------------------+--------------+
+| id_producto | nombre                   | stock_actual |
++-------------+--------------------------+--------------+
+|           1 | Cuaderno Norma 100 hojas |          120 |
++-------------+--------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (4, 1, 2, 8500.00, 'Pendiente');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`detalles_pedido`, CONSTRAINT `fk_de_` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]>  INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (1, 1, 2, 8500.00, 'Pendiente');
+ERROR 1062 (23000): Duplicate entry '1-1' for key 'id_pedido'
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (1, 2, 2, 2000.00, 'Pendiente');
+Query OK, 1 row affected (0.021 sec)
+
+MariaDB [colorinpapelin]> -- 1. Crear el pedido 4
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta)
+    -> VALUES (3, NOW(), 1, 1, 'Calle Prueba 123', '3000000000', 0);
+ERROR 1062 (23000): Duplicate entry '3' for key 'id_usuarios'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Insertar el detalle para el nuevo pedido 4
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, estado_pedido)
+    -> VALUES (4, 1, 2, 8500.00, 'Pendiente');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`detalles_pedido`, CONSTRAINT `fk_de_` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]> SELECT * FROM detalles_pedido WHERE id_pedido = 1 AND id_producto = 2;
++-------------------+-----------+-------------+----------+-----------------+---------------+-------------+
+| id_detalle_pedido | id_pedido | id_producto | cantidad | precio_unitario | estado_pedido | valor_total |
++-------------------+-----------+-------------+----------+-----------------+---------------+-------------+
+|                13 |         1 |           2 |        2 |         2000.00 | Pendiente     |     4000.00 |
++-------------------+-----------+-------------+----------+-----------------+---------------+-------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |          298 |
++-------------+-------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- A. Crear usuario de prueba
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Prueba', 'Descuento', 'prueba.desc@gmail.com', '1234', '3001112233', 2);
+Query OK, 1 row affected (0.019 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- B. Crear el pedido usando el id_descuento = 2 y el ID del usuario recién creado
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, id_descuento, total_venta)
+    -> VALUES (LAST_INSERT_ID(), NOW(), 1, 1, 'Calle 100 #20-30', '3001112233', 2, 50000.00);
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [colorinpapelin]> SELECT id_descuentos, nombre, estado FROM descuentos WHERE id_descuentos = 2;
++---------------+-------------------+----------+
+| id_descuentos | nombre            | estado   |
++---------------+-------------------+----------+
+|             2 | Cliente Frecuente | Inactivo |
++---------------+-------------------+----------+
+1 row in set (0.000 sec)
+
+MariaDB [colorinpapelin]> -- 1. Consultar el estado inicial del descuento 2
+MariaDB [colorinpapelin]> SELECT id_descuentos, nombre, estado FROM descuentos WHERE id_descuentos = 2;
++---------------+-------------------+----------+
+| id_descuentos | nombre            | estado   |
++---------------+-------------------+----------+
+|             2 | Cliente Frecuente | Inactivo |
++---------------+-------------------+----------+
+1 row in set (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Crear un usuario temporal para asignar el pedido
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Prueba', 'Descuento', 'prueba.desc@gmail.com', '1234', '3001112233', 2);
+ERROR 1062 (23000): Duplicate entry 'prueba.desc@gmail.com' for key 'correo'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Crear el pedido usando el id_descuento = 2
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, id_descuento, total_venta)
+    -> VALUES (LAST_INSERT_ID(), NOW(), 1, 1, 'Calle 100 #20-30', '3001112233', 2, 50000.00);
+ERROR 1062 (23000): Duplicate entry '5' for key 'id_usuarios'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Verificar si el estado del descuento cambió a 'Inactivo'
+MariaDB [colorinpapelin]> SELECT id_descuentos, nombre, estado FROM descuentos WHERE id_descuentos = 2;
++---------------+-------------------+----------+
+| id_descuentos | nombre            | estado   |
++---------------+-------------------+----------+
+|             2 | Cliente Frecuente | Inactivo |
++---------------+-------------------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> INSERT INTO producto (id_proveedor, nombre, precio_compra, precio_venta, stock_actual, stock_minimo, id_categoria)
+    -> VALUES (NULL, 'Borrador de prueba', -500.00, 1500.00, 10, 2, 1);
+ERROR 1644 (45000): ERROR: Los precios no pueden ser valores negativos.
+MariaDB [colorinpapelin]> UPDATE producto
+    -> SET stock_actual = 15
+    -> WHERE id_producto = 1;
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_usuario'
+MariaDB [colorinpapelin]> DROP TRIGGER IF EXISTS `Alerta_stock_bajo`;
+Query OK, 0 rows affected (0.026 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> DELIMITER $$
+MariaDB [colorinpapelin]> CREATE TRIGGER `Alerta_stock_bajo` AFTER UPDATE ON `producto` FOR EACH ROW
+    -> BEGIN
+    ->     IF NEW.stock_actual <= NEW.stock_minimo AND OLD.stock_actual > OLD.stock_minimo THEN
+    ->         INSERT INTO logs(id_usuario, tipo_accion, fecha_movimiento)
+    ->         VALUES (
+    ->             3,
+    ->             CONCAT('Alerta: El producto "', NEW.nombre, '" alcanzo el stock minimo. Quedan ', NEW.stock_actual, ' unidades.'),
+    ->             NOW()
+    ->         );
+    ->     END IF;
+    -> END$$
+Query OK, 0 rows affected (0.025 sec)
+
+MariaDB [colorinpapelin]> DELIMITER ;
+MariaDB [colorinpapelin]> -- 1. Forzar bajada de stock en el producto 2 (stock_minimo = 50)
+MariaDB [colorinpapelin]> UPDATE producto
+    -> SET stock_actual = 40
+    -> WHERE id_producto = 2;
+ERROR 1062 (23000): Duplicate entry '3' for key 'id_usuario'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Consultar si se registró la alerta en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------+---------------------+
+| id_log | id_usuario | tipo_accion      | fecha_movimiento    |
++--------+------------+------------------+---------------------+
+|      3 |          3 | Cierre de sesión | 2026-07-03 17:45:00 |
++--------+------------+------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Eliminar la restricción UNIQUE de la columna id_usuario
+MariaDB [colorinpapelin]> ALTER TABLE logs DROP INDEX id_usuario;
+ERROR 1553 (HY000): Cannot drop index 'id_usuario': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Volver a crear el disparador Alerta_stock_bajo original
+MariaDB [colorinpapelin]> DROP TRIGGER IF EXISTS `Alerta_stock_bajo`;
+Query OK, 0 rows affected (0.008 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> DELIMITER $$
+MariaDB [colorinpapelin]> CREATE TRIGGER `Alerta_stock_bajo` AFTER UPDATE ON `producto` FOR EACH ROW
+    -> BEGIN
+    ->     IF NEW.stock_actual <= NEW.stock_minimo AND OLD.stock_actual > OLD.stock_minimo THEN
+    ->         INSERT INTO logs(id_usuario, tipo_accion, fecha_movimiento)
+    ->         VALUES (
+    ->             1,
+    ->             CONCAT('Alerta: El producto "', NEW.nombre, '" alcanzo el stock minimo. Quedan ', NEW.stock_actual, ' unidades.'),
+    ->             NOW()
+    ->         );
+    ->     END IF;
+    -> END$$
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [colorinpapelin]> DELIMITER ;
+MariaDB [colorinpapelin]> -- 1. Forzar bajada de stock por debajo del mínimo (a 5 unidades)
+MariaDB [colorinpapelin]> UPDATE producto
+    -> SET stock_actual = 5
+    -> WHERE id_producto = 3;
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_usuario'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Consultar el nuevo registro en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------+---------------------+
+| id_log | id_usuario | tipo_accion      | fecha_movimiento    |
++--------+------------+------------------+---------------------+
+|      3 |          3 | Cierre de sesión | 2026-07-03 17:45:00 |
++--------+------------+------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Eliminar la restricción UNIQUE de la columna id_usuario
+MariaDB [colorinpapelin]> ALTER TABLE logs DROP INDEX id_usuario;
+ERROR 1553 (HY000): Cannot drop index 'id_usuario': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Volver a crear el disparador Alerta_stock_bajo original
+MariaDB [colorinpapelin]> DROP TRIGGER IF EXISTS `Alerta_stock_bajo`;
+Query OK, 0 rows affected (0.006 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> DELIMITER $$
+MariaDB [colorinpapelin]> CREATE TRIGGER `Alerta_stock_bajo` AFTER UPDATE ON `producto` FOR EACH ROW
+    -> BEGIN
+    ->     IF NEW.stock_actual <= NEW.stock_minimo AND OLD.stock_actual > OLD.stock_minimo THEN
+    ->         INSERT INTO logs(id_usuario, tipo_accion, fecha_movimiento)
+    ->         VALUES (
+    ->             1,
+    ->             CONCAT('Alerta: El producto "', NEW.nombre, '" alcanzo el stock minimo. Quedan ', NEW.stock_actual, ' unidades.'),
+    ->             NOW()
+    ->         );
+    ->     END IF;
+    -> END$$
+Query OK, 0 rows affected (0.016 sec)
+
+MariaDB [colorinpapelin]> DELIMITER ;
+MariaDB [colorinpapelin]> -- 1. Eliminar temporalmente la clave foránea que bloquea el índice
+MariaDB [colorinpapelin]> ALTER TABLE logs DROP FOREIGN KEY zxcas;
+Query OK, 0 rows affected (0.011 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Eliminar el índice ÚNICO que impide repetir logs por usuario
+MariaDB [colorinpapelin]> ALTER TABLE logs DROP INDEX id_usuario;
+Query OK, 0 rows affected (0.011 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Volver a crear la clave foránea (esta vez permitiendo múltiples registros por usuario)
+MariaDB [colorinpapelin]> ALTER TABLE logs ADD CONSTRAINT zxcas FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario);
+Query OK, 3 rows affected (0.085 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> UPDATE producto
+    -> SET stock_actual = 5
+    -> WHERE id_producto = 3;
+Query OK, 1 row affected (0.024 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Registrar un usuario de prueba
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Prueba', 'Logs', 'usuario.logs@gmail.com', '1234', '3110009988', 2);
+Query OK, 1 row affected (0.019 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Consultar si el disparador nuevo_usuario_log guardó el registro en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Actualizar el usuario para probar log_actualizacion_usuario
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3220001122'
+    -> WHERE correo = 'usuario.logs@gmail.com';
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Consultar si se guardó el log de la actualización
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Registrar un usuario de prueba
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Prueba', 'Logs', 'usuario.logs@gmail.com', '1234', '3110009988', 2);
+ERROR 1062 (23000): Duplicate entry 'usuario.logs@gmail.com' for key 'correo'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Consultar si el disparador nuevo_usuario_log guardó el registro en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Actualizar el usuario para probar log_actualizacion_usuario
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3220001122'
+    -> WHERE correo = 'usuario.logs@gmail.com';
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Consultar si se guardó el log de la actualización
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Crear un usuario con un correo único
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Camila', 'Rojas', 'camila.prueba2026@gmail.com', '1234', '3159998877', 2);
+Query OK, 1 row affected (0.020 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Verificar si nuevo_usuario_log guardó el evento en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Actualizar el teléfono del usuario recién creado
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3000000000'
+    -> WHERE correo = 'camila.prueba2026@gmail.com';
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Verificar si log_actualizacion_usuario guardó el evento en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Crear un usuario con un correo único
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Camila', 'Rojas', 'camila.prueba2026@gmail.com', '1234', '3159998877', 2);
+ERROR 1062 (23000): Duplicate entry 'camila.prueba2026@gmail.com' for key 'correo'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Verificar si nuevo_usuario_log guardó el evento en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Actualizar el teléfono del usuario recién creado
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3000000000'
+    -> WHERE correo = 'camila.prueba2026@gmail.com';
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Verificar si log_actualizacion_usuario guardó el evento en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Crear un usuario con un correo único
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Camila', 'Rojas', 'camila.prueba2026@gmail.com', '1234', '3159998877', 2);
+ERROR 1062 (23000): Duplicate entry 'camila.prueba2026@gmail.com' for key 'correo'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Verificar si nuevo_usuario_log guardó el evento en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Actualizar el teléfono del usuario recién creado
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3000000000'
+    -> WHERE correo = 'camila.prueba2026@gmail.com';
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Verificar si log_actualizacion_usuario guardó el evento en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Cambiar el teléfono a un valor diferente para obligar al UPDATE
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3118887766'
+    -> WHERE correo = 'camila.prueba2026@gmail.com';
+Query OK, 1 row affected (0.020 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Consultar si se registró en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                             | fecha_movimiento    |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+|     13 |          1 | Alerta: El producto "Resma Carta Reprograf" alcanzo el stock minimo. Quedan 5 unidades. | 2026-08-02 19:47:58 |
++--------+------------+-----------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SHOW CREATE TRIGGER nuevo_usuario_log\G
+ERROR 1360 (HY000): Trigger does not exist
+MariaDB [colorinpapelin]> SHOW CREATE TRIGGER log_actualizacion_usuario\G
+ERROR 1360 (HY000): Trigger does not exist
+MariaDB [colorinpapelin]> DELIMITER $$
+MariaDB [colorinpapelin]> CREATE TRIGGER `nuevo_usuario_log` AFTER INSERT ON `usuario` FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+    ->     VALUES (NEW.id_usuario, 'Registro de nuevo usuario', NOW());
+    -> END$$
+Query OK, 0 rows affected (0.027 sec)
+
+MariaDB [colorinpapelin]> DELIMITER ;
+MariaDB [colorinpapelin]> DELIMITER $$
+MariaDB [colorinpapelin]> CREATE TRIGGER `log_actualizacion_usuario` AFTER UPDATE ON `usuario` FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+    ->     VALUES (NEW.id_usuario, 'Actualizacion de datos del usuario', NOW());
+    -> END$$
+Query OK, 0 rows affected (0.030 sec)
+
+MariaDB [colorinpapelin]> DELIMITER ;
+MariaDB [colorinpapelin]> -- 1. Crear un usuario de prueba
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Felipe', 'Torres', 'felipe.prueba2026@gmail.com', '1234', '3101112233', 2);
+Query OK, 1 row affected (0.021 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Verificar que se creó el log de registro
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+---------------------------+---------------------+
+| id_log | id_usuario | tipo_accion               | fecha_movimiento    |
++--------+------------+---------------------------+---------------------+
+|     14 |         12 | Registro de nuevo usuario | 2026-08-02 20:01:05 |
++--------+------------+---------------------------+---------------------+
+1 row in set (0.003 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Actualizar el usuario para probar la traza de actualización
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3159998800'
+    -> WHERE correo = 'felipe.prueba2026@gmail.com';
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Verificar que se creó el log de actualización
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     15 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:05 |
++--------+------------+------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Crear un usuario de prueba
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Felipe', 'Torres', 'felipe.prueba2026@gmail.com', '1234', '3101112233', 2);
+ERROR 1062 (23000): Duplicate entry 'felipe.prueba2026@gmail.com' for key 'correo'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Verificar que se creó el log de registro
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     15 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:05 |
++--------+------------+------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Actualizar el usuario para probar la traza de actualización
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3159998800'
+    -> WHERE correo = 'felipe.prueba2026@gmail.com';
+Query OK, 0 rows affected (0.003 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Verificar que se creó el log de actualización
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     16 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:22 |
++--------+------------+------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Consultar el stock actual del producto 2
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |          298 |
++-------------+-------------------------+--------------+
+1 row in set (0.018 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Registrar una venta de 5 unidades del producto 2
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_usuario, id_producto, cantidad, total_venta, fecha_venta)
+    -> VALUES (1, 2, 5, 7500.00, NOW());
+ERROR 1054 (42S22): Unknown column 'id_producto' in 'field list'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Verificar si el stock del producto 2 bajó 5 unidades
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |          298 |
++-------------+-------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- Consultar el último registro en logs tras la venta
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     16 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:22 |
++--------+------------+------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> DESCRIBE ventas;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| id_venta       | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_pedido      | int(10)       | NO   | UNI | NULL    |                |
+| id_usuario     | int(10)       | NO   | MUL | NULL    |                |
+| fecha_venta    | datetime      | NO   |     | NULL    |                |
+| subtotal       | decimal(10,2) | NO   |     | NULL    |                |
+| descuentos     | decimal(10,2) | YES  |     | NULL    |                |
+| total          | decimal(10,2) | NO   |     | NULL    |                |
+| estado_pago    | varchar(50)   | NO   |     | NULL    |                |
+| numero_factura | varchar(100)  | YES  | UNI | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.047 sec)
+
+MariaDB [colorinpapelin]> SHOW TRIGGERS LIKE 'ventas'\G
+*************************** 1. row ***************************
+             Trigger: log_nueva_venta
+               Event: INSERT
+               Table: ventas
+           Statement: BEGIN
+DECLARE usuario_id INT;
+SELECT id_usuarios INTO usuario_id
+FROM pedidos
+WHERE id_pedido = NEW.id_pedido;
+INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+VALUES (usuario_id, CONCAT('Venta registrada exitosamente - Factura N°: ', COALESCE(NEW.numero_factura, NEW.id_venta)), NOW());
+END
+              Timing: AFTER
+             Created: 2026-08-02 18:23:48.64
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 2. row ***************************
+             Trigger: vaciar_carrito
+               Event: INSERT
+               Table: ventas
+           Statement: BEGIN
+DELETE FROM carrito
+WHERE id_usuario = NEW.id_usuario;
+END
+              Timing: AFTER
+             Created: 2026-08-02 18:23:48.66
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+2 rows in set (0.042 sec)
+
+MariaDB [colorinpapelin]> DROP TRIGGER IF EXISTS log_nueva_venta;
+Query OK, 0 rows affected (0.030 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> DELIMITER $$
+MariaDB [colorinpapelin]> CREATE TRIGGER `log_nueva_venta` AFTER INSERT ON `ventas` FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+    ->     VALUES (
+    ->         NEW.id_usuario,
+    ->         CONCAT('Venta registrada exitosamente - Factura N°: ', COALESCE(NEW.numero_factura, NEW.id_venta)),
+    ->         NOW()
+    ->     );
+    -> END$$
+Query OK, 0 rows affected (0.026 sec)
+
+MariaDB [colorinpapelin]> DELIMITER ;
+MariaDB [colorinpapelin]> -- 1. Insertar una venta de prueba
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (1, 1, NOW(), 15000.00, 0.00, 15000.00, 'Pagado', 'FACT-001');
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_pedido'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Verificar que se haya registrado en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     16 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:22 |
++--------+------------+------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SHOW TRIGGERS LIKE 'detalles_pedido'\G
+*************************** 1. row ***************************
+             Trigger: calcular_total_detalle
+               Event: INSERT
+               Table: detalles_pedido
+           Statement: BEGIN
+SET NEW.valor_total = NEW.cantidad * NEW.precio_unitario;
+END
+              Timing: BEFORE
+             Created: 2026-08-02 18:23:48.29
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 2. row ***************************
+             Trigger: validar_stock_dispoible
+               Event: INSERT
+               Table: detalles_pedido
+           Statement: BEGIN
+DECLARE stock_disponible INT;
+SELECT stock_actual INTO stock_disponible
+FROM producto
+WHERE id_producto = NEW.id_producto;
+IF NEW.cantidad > stock_disponible THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: No hay stock para cubrir este pedido.';
+END IF;
+END
+              Timing: BEFORE
+             Created: 2026-08-02 18:23:48.32
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 3. row ***************************
+             Trigger: descontar_stock_pedido
+               Event: INSERT
+               Table: detalles_pedido
+           Statement: BEGIN
+UPDATE producto
+SET stock_actual = stock_actual - NEW.cantidad
+WHERE id_producto = NEW.id_producto;
+END
+              Timing: AFTER
+             Created: 2026-08-02 18:23:48.30
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+3 rows in set (0.043 sec)
+
+MariaDB [colorinpapelin]> -- 1. Crear un pedido nuevo (para el usuario 1)
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado_pedido, total)
+    -> VALUES (1, NOW(), 'Pendiente', 0.00);
+ERROR 1054 (42S22): Unknown column 'estado_pedido' in 'field list'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Consultar el ID del pedido recién creado
+MariaDB [colorinpapelin]> SELECT LAST_INSERT_ID() AS nuevo_id_pedido;
++-----------------+
+| nuevo_id_pedido |
++-----------------+
+|              12 |
++-----------------+
+1 row in set (0.000 sec)
+
+MariaDB [colorinpapelin]> -- Reemplaza el primer '2' por el id_pedido que te retornó el paso anterior
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (2, 1, NOW(), 15000.00, 0.00, 15000.00, 'Pagado', 'FACT-002');
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_pedido'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Verificar que log_nueva_venta guardó el registro
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     16 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:22 |
++--------+------------+------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SHOW TRIGGERS LIKE 'detalles_pedido'\G
+*************************** 1. row ***************************
+             Trigger: calcular_total_detalle
+               Event: INSERT
+               Table: detalles_pedido
+           Statement: BEGIN
+SET NEW.valor_total = NEW.cantidad * NEW.precio_unitario;
+END
+              Timing: BEFORE
+             Created: 2026-08-02 18:23:48.29
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 2. row ***************************
+             Trigger: validar_stock_dispoible
+               Event: INSERT
+               Table: detalles_pedido
+           Statement: BEGIN
+DECLARE stock_disponible INT;
+SELECT stock_actual INTO stock_disponible
+FROM producto
+WHERE id_producto = NEW.id_producto;
+IF NEW.cantidad > stock_disponible THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: No hay stock para cubrir este pedido.';
+END IF;
+END
+              Timing: BEFORE
+             Created: 2026-08-02 18:23:48.32
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 3. row ***************************
+             Trigger: descontar_stock_pedido
+               Event: INSERT
+               Table: detalles_pedido
+           Statement: BEGIN
+UPDATE producto
+SET stock_actual = stock_actual - NEW.cantidad
+WHERE id_producto = NEW.id_producto;
+END
+              Timing: AFTER
+             Created: 2026-08-02 18:23:48.30
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+3 rows in set (0.040 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 1. Registrar la venta en la tabla ventas con id_pedido = 12
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (12, 1, NOW(), 15000.00, 0.00, 15000.00, 'Pagado', 'FACT-012');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`ventas`, CONSTRAINT `erer` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Confirmar que se guardó la traza en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     16 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:22 |
++--------+------------+------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Ver el stock actual de Esfero Kilométrico Azul (ID 2)
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |          298 |
++-------------+-------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Insertar 10 unidades en detalles_pedido
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario)
+    -> VALUES (12, 2, 10, 1500.00);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`detalles_pedido`, CONSTRAINT `fk_de_` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Verificar que el stock bajó 10 unidades automáticamente
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |          298 |
++-------------+-------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> DESCRIBE carrito, categoria;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' categoria' at line 1
+MariaDB [colorinpapelin]> describe carrito;
++----------------+----------+------+-----+---------+----------------+
+| Field          | Type     | Null | Key | Default | Extra          |
++----------------+----------+------+-----+---------+----------------+
+| id_carrito     | int(10)  | NO   | PRI | NULL    | auto_increment |
+| id_usuario     | int(10)  | NO   | UNI | NULL    |                |
+| fecha_creacion | datetime | YES  |     | NULL    |                |
+| id_producto    | int(10)  | NO   | UNI | NULL    |                |
+| cantidad       | int(10)  | NO   |     | NULL    |                |
++----------------+----------+------+-----+---------+----------------+
+5 rows in set (0.030 sec)
+
+MariaDB [colorinpapelin]> describe categoria;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id_categoria     | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre_categoria | varchar(100) | NO   |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.035 sec)
+
+MariaDB [colorinpapelin]> describe descuentos;
++----------------------+--------------+------+-----+---------+----------------+
+| Field                | Type         | Null | Key | Default | Extra          |
++----------------------+--------------+------+-----+---------+----------------+
+| id_descuentos        | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre               | varchar(100) | NO   |     | NULL    |                |
+| fecha_inicio         | date         | NO   |     | NULL    |                |
+| fecha_fin            | date         | NO   |     | NULL    |                |
+| estado               | varchar(20)  | YES  |     | NULL    |                |
+| porcentaje_descuento | decimal(5,2) | NO   |     | NULL    |                |
++----------------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.039 sec)
+
+MariaDB [colorinpapelin]> describe detalles_pedido;
++-------------------+---------------+------+-----+---------+----------------+
+| Field             | Type          | Null | Key | Default | Extra          |
++-------------------+---------------+------+-----+---------+----------------+
+| id_detalle_pedido | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_pedido         | int(10)       | NO   | MUL | NULL    |                |
+| id_producto       | int(10)       | NO   | MUL | NULL    |                |
+| cantidad          | int(10)       | NO   |     | NULL    |                |
+| precio_unitario   | decimal(10,2) | NO   |     | NULL    |                |
+| estado_pedido     | varchar(50)   | YES  |     | NULL    |                |
+| valor_total       | decimal(10,2) | NO   |     | NULL    |                |
++-------------------+---------------+------+-----+---------+----------------+
+7 rows in set (0.047 sec)
+
+MariaDB [colorinpapelin]> detalles logs;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'detalles logs' at line 1
+MariaDB [colorinpapelin]> describe logs;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id_log           | int(10)      | NO   | PRI | NULL    | auto_increment |
+| id_usuario       | int(10)      | NO   | MUL | NULL    |                |
+| tipo_accion      | varchar(100) | NO   |     | NULL    |                |
+| fecha_movimiento | datetime     | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.039 sec)
+
+MariaDB [colorinpapelin]> describe metodo_pago;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| id_metodo     | int(10)     | NO   | PRI | NULL    | auto_increment |
+| nombre_metodo | varchar(50) | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.049 sec)
+
+MariaDB [colorinpapelin]> describe pedidos;
++----------------------+---------------+------+-----+---------+----------------+
+| Field                | Type          | Null | Key | Default | Extra          |
++----------------------+---------------+------+-----+---------+----------------+
+| id_pedido            | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_usuario           | int(10)       | NO   | UNI | NULL    |                |
+| fecha_pedido         | datetime      | YES  |     | NULL    |                |
+| estado               | int(10)       | NO   |     | NULL    |                |
+| id_metodo            | int(10)       | NO   | MUL | NULL    |                |
+| comprobante_pago_url | varchar(255)  | YES  |     | NULL    |                |
+| direccion_envio      | varchar(255)  | NO   |     | NULL    |                |
+| telefono_envio       | varchar(20)   | NO   |     | NULL    |                |
+| id_descuento         | int(10)       | YES  | MUL | NULL    |                |
+| total_venta          | decimal(10,2) | NO   |     | NULL    |                |
++----------------------+---------------+------+-----+---------+----------------+
+10 rows in set (0.042 sec)
+
+MariaDB [colorinpapelin]> describe productos;
+ERROR 1146 (42S02): Table 'colorinpapelin.productos' doesn't exist
+MariaDB [colorinpapelin]> describe producto;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| id_producto   | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_proveedor  | int(10)       | YES  | UNI | NULL    |                |
+| nombre        | varchar(150)  | NO   |     | NULL    |                |
+| descripcion   | varchar(500)  | YES  |     | NULL    |                |
+| precio_compra | decimal(10,2) | NO   |     | NULL    |                |
+| precio_venta  | decimal(10,2) | NO   |     | NULL    |                |
+| url_imagen    | varchar(255)  | YES  |     | NULL    |                |
+| stock_actual  | int(10)       | YES  |     | NULL    |                |
+| stock_minimo  | int(10)       | YES  |     | NULL    |                |
+| id_categoria  | int(10)       | NO   | UNI | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+10 rows in set (0.043 sec)
+
+MariaDB [colorinpapelin]> describe proovedores;
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id_proveedores  | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre_empresa  | varchar(150) | NO   |     | NULL    |                |
+| nombre_contacto | varchar(100) | YES  |     | NULL    |                |
+| telefono        | varchar(20)  | YES  |     | NULL    |                |
+| correo          | varchar(150) | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.039 sec)
+
+MariaDB [colorinpapelin]> describe roles;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| id_rol     | int(10)     | NO   | PRI | NULL    |       |
+| nombre_rol | varchar(50) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+2 rows in set (0.042 sec)
+
+MariaDB [colorinpapelin]> describe usuario;
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| id_usuario          | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre              | varchar(100) | NO   |     | NULL    |                |
+| apellido            | varchar(100) | NO   |     | NULL    |                |
+| correo              | varchar(150) | NO   | UNI | NULL    |                |
+| contraseña          | varchar(255) | NO   |     | NULL    |                |
+| telefono            | varchar(20)  | YES  |     | NULL    |                |
+| telefono_secundario | varchar(20)  | YES  |     | NULL    |                |
+| id_rol              | int(10)      | NO   | MUL | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+8 rows in set (0.047 sec)
+
+MariaDB [colorinpapelin]> describe ventas;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| id_venta       | int(10)       | NO   | PRI | NULL    | auto_increment |
+| id_pedido      | int(10)       | NO   | UNI | NULL    |                |
+| id_usuario     | int(10)       | NO   | MUL | NULL    |                |
+| fecha_venta    | datetime      | NO   |     | NULL    |                |
+| subtotal       | decimal(10,2) | NO   |     | NULL    |                |
+| descuentos     | decimal(10,2) | YES  |     | NULL    |                |
+| total          | decimal(10,2) | NO   |     | NULL    |                |
+| estado_pago    | varchar(50)   | NO   |     | NULL    |                |
+| numero_factura | varchar(100)  | YES  | UNI | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.026 sec)
+
+MariaDB [colorinpapelin]> -- 1. Crear un pedido respetando la estructura exactas de campos
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, direccion_envio, total_venta)
+    -> VALUES (1, NOW(), 'Pendiente', 'Calle Principal #123', 15000.00);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_usuarios'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Guardar el ID generado en una variable para no fallar con claves foráneas
+MariaDB [colorinpapelin]> SET @id_pedido_nuevo = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Probar 'detalles_pedido' (ejecuta calculo, validación y descuento de stock)
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, valor_total)
+    -> VALUES (@id_pedido_nuevo, 2, 5, 1500.00, 7500.00);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`detalles_pedido`, CONSTRAINT `fk_de_` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Registrar la venta correspondiente al pedido recién creado
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@id_pedido_nuevo, 1, NOW(), 7500.00, 0.00, 7500.00, 'Pagado', CONCAT('FACT-', @id_pedido_nuevo));
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`ventas`, CONSTRAINT `erer` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 5. VERIFICACIÓN FINAL: Consultar el nuevo stock y los logs generados
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |          298 |
++-------------+-------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 2;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     16 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:22 |
+|     15 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:05 |
++--------+------------+------------------------------------+---------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Eliminar el índice UNIQUE que impide múltiples pedidos por usuario
+MariaDB [colorinpapelin]> ALTER TABLE pedidos DROP INDEX id_usuarios;
+ERROR 1553 (HY000): Cannot drop index 'id_usuarios': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Volver a crear el índice normal de Foreign Key
+MariaDB [colorinpapelin]> ALTER TABLE pedidos ADD CONSTRAINT fk_pedidos_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
+Query OK, 4 rows affected (0.085 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> -- 1. Crear un pedido respetando la estructura de campos
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, direccion_envio, total_venta)
+    -> VALUES (1, NOW(), 'Pendiente', 'Calle Principal #123', 15000.00);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_usuarios'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Guardar el ID generado
+MariaDB [colorinpapelin]> SET @id_pedido_nuevo = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Probar 'detalles_pedido' (ejecuta calculo, validación y descuento de stock)
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, valor_total)
+    -> VALUES (@id_pedido_nuevo, 2, 5, 1500.00, 7500.00);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`detalles_pedido`, CONSTRAINT `fk_de_` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Registrar la venta correspondiente al pedido recién creado
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@id_pedido_nuevo, 1, NOW(), 7500.00, 0.00, 7500.00, 'Pagado', CONCAT('FACT-', @id_pedido_nuevo));
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`colorinpapelin`.`ventas`, CONSTRAINT `erer` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`))
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 5. VERIFICACIÓN FINAL: Consultar el nuevo stock y los logs generados
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |          298 |
++-------------+-------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 2;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     16 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:22 |
+|     15 |         12 | Actualizacion de datos del usuario | 2026-08-02 20:01:05 |
++--------+------------+------------------------------------+---------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SHOW CREATE TABLE pedidos\G
+*************************** 1. row ***************************
+       Table: pedidos
+Create Table: CREATE TABLE `pedidos` (
+  `id_pedido` int(10) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(10) NOT NULL,
+  `fecha_pedido` datetime DEFAULT NULL,
+  `estado` int(10) NOT NULL,
+  `id_metodo` int(10) NOT NULL,
+  `comprobante_pago_url` varchar(255) DEFAULT NULL,
+  `direccion_envio` varchar(255) NOT NULL,
+  `telefono_envio` varchar(20) NOT NULL,
+  `id_descuento` int(10) DEFAULT NULL,
+  `total_venta` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id_pedido`),
+  UNIQUE KEY `id_usuarios` (`id_usuario`),
+  KEY `hgh` (`id_metodo`),
+  KEY `jhjj` (`id_descuento`),
+  CONSTRAINT `dksjks` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
+  CONSTRAINT `fk_pedidos_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
+  CONSTRAINT `hgh` FOREIGN KEY (`id_metodo`) REFERENCES `metodo_pago` (`id_metodo`),
+  CONSTRAINT `jhjj` FOREIGN KEY (`id_descuento`) REFERENCES `descuentos` (`id_descuentos`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Eliminar la Foreign Key que amarra el índice UNIQUE
+MariaDB [colorinpapelin]> -- (Reemplaza 'fk_nombre_existente' por el CONSTRAINT que te muestre el SHOW CREATE TABLE)
+MariaDB [colorinpapelin]> ALTER TABLE pedidos DROP FOREIGN KEY fk_nombre_existente;
+ERROR 1091 (42000): Can't DROP FOREIGN KEY `fk_nombre_existente`; check that it exists
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Eliminar el índice UNIQUE
+MariaDB [colorinpapelin]> ALTER TABLE pedidos DROP INDEX id_usuarios;
+ERROR 1553 (HY000): Cannot drop index 'id_usuarios': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Crear nuevamente la Foreign Key (esto creará un índice normal/non-unique automáticamente)
+MariaDB [colorinpapelin]> ALTER TABLE pedidos
+    -> ADD CONSTRAINT fk_pedidos_usuario
+    -> FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
+ERROR 1005 (HY000): Can't create table `colorinpapelin`.`pedidos` (errno: 121 "Duplicate key on write or update")
+MariaDB [colorinpapelin]> SELECT id_usuario, nombre, correo FROM usuario
+    -> WHERE id_usuario NOT IN (SELECT id_usuario FROM pedidos);
++------------+--------+-----------------------------+
+| id_usuario | nombre | correo                      |
++------------+--------+-----------------------------+
+|          4 | Camilo | camilo.rojas@gmail.com      |
+|          7 | Prueba | usuario.logs@gmail.com      |
+|          9 | Camila | camila.prueba2026@gmail.com |
+|         12 | Felipe | felipe.prueba2026@gmail.com |
++------------+--------+-----------------------------+
+4 rows in set (0.020 sec)
+
+MariaDB [colorinpapelin]> -- 1. Eliminar las dos Foreign Keys amarradas a id_usuario
+MariaDB [colorinpapelin]> ALTER TABLE pedidos DROP FOREIGN KEY dksjks;
+Query OK, 0 rows affected (0.012 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> ALTER TABLE pedidos DROP FOREIGN KEY fk_pedidos_usuario;
+Query OK, 0 rows affected (0.009 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Eliminar el índice UNIQUE
+MariaDB [colorinpapelin]> ALTER TABLE pedidos DROP INDEX id_usuarios;
+Query OK, 0 rows affected (0.010 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Recrear la Foreign Key como índice normal
+MariaDB [colorinpapelin]> ALTER TABLE pedidos
+    -> ADD CONSTRAINT fk_pedidos_usuario
+    -> FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
+Query OK, 4 rows affected (0.070 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> -- 1. Insertar pedido usando un usuario sin pedidos previos (id_usuario = 4)
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta)
+    -> VALUES (4, NOW(), 1, 1, 'Calle Principal #123', '3001234567', 15000.00);
+Query OK, 1 row affected (0.024 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Capturar el ID generado para el pedido
+MariaDB [colorinpapelin]> SET @id_pedido_nuevo = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Probar 'detalles_pedido' (ejecuta calculo, validación y descuento de stock)
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, valor_total)
+    -> VALUES (@id_pedido_nuevo, 2, 5, 1500.00, 7500.00);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Registrar la venta correspondiente al pedido
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@id_pedido_nuevo, 4, NOW(), 7500.00, 0.00, 7500.00, 'Pagado', CONCAT('FACT-', @id_pedido_nuevo));
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 5. VERIFICACIÓN FINAL: Consultar el nuevo stock y los logs generados
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |          293 |
++-------------+-------------------------+--------------+
+1 row in set (0.000 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 2;
++--------+------------+----------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                        | fecha_movimiento    |
++--------+------------+----------------------------------------------------+---------------------+
+|     17 |          4 | Venta registrada exitosamente - Factura N°: FACT-9 | 2026-08-02 20:16:44 |
+|     16 |         12 | Actualizacion de datos del usuario                 | 2026-08-02 20:01:22 |
++--------+------------+----------------------------------------------------+---------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- Insertar un segundo pedido para el mismo usuario
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta)
+    -> VALUES (4, NOW(), 1, 1, 'Calle Secundaria #456', '3001234567', 3000.00);
+Query OK, 1 row affected (0.020 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Verificar que ambos pedidos existen para este usuario
+MariaDB [colorinpapelin]> SELECT id_pedido, id_usuario, fecha_pedido, total_venta FROM pedidos WHERE id_usuario = 4;
++-----------+------------+---------------------+-------------+
+| id_pedido | id_usuario | fecha_pedido        | total_venta |
++-----------+------------+---------------------+-------------+
+|         9 |          4 | 2026-08-02 20:16:44 |    15000.00 |
+|        10 |          4 | 2026-08-02 20:18:20 |     3000.00 |
++-----------+------------+---------------------+-------------+
+2 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Disparar nuevo_usuario_log (INSERT)
+MariaDB [colorinpapelin]> INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, id_rol)
+    -> VALUES ('Prueba', 'Triggers', 'prueba.triggers@gmail.com', '123456', '3000000000', 1);
+Query OK, 1 row affected (0.020 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Guardar el id_usuario recién creado
+MariaDB [colorinpapelin]> SET @id_user_test = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Disparar log_actualizacion_usuario (UPDATE)
+MariaDB [colorinpapelin]> UPDATE usuario
+    -> SET telefono = '3118888888'
+    -> WHERE id_usuario = @id_user_test;
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Verificar la auditoría registrada en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 2;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     19 |         14 | Actualizacion de datos del usuario | 2026-08-02 20:21:28 |
+|     18 |         14 | Registro de nuevo usuario          | 2026-08-02 20:21:28 |
++--------+------------+------------------------------------+---------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Probar validar_valores_positivos_producto (Debe rechazar precios negativos)
+MariaDB [colorinpapelin]> -- (Si el trigger lanza un SIGNAL SQLSTATE, se confirmará que funciona correctamente)
+MariaDB [colorinpapelin]> INSERT INTO producto (nombre, descripcion, precio_compra, precio_venta, stock_actual, stock_minimo, id_categoria)
+    -> VALUES ('Producto Test Error', 'Prueba', -500.00, 1000.00, 10, 5, 1);
+ERROR 1644 (45000): ERROR: Los precios no pueden ser valores negativos.
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Insertar un producto de prueba válido
+MariaDB [colorinpapelin]> INSERT INTO producto (nombre, descripcion, precio_compra, precio_venta, stock_actual, stock_minimo, id_categoria)
+    -> VALUES ('Cuaderno Test Triggers', 'Prueba Triggers', 2000.00, 4000.00, 10, 5, 1);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_categoria'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET @id_prod_test = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Disparar Alerta_stock_bajo (UPDATE)
+MariaDB [colorinpapelin]> -- Reducimos el stock por debajo o igual al stock_minimo (5)
+MariaDB [colorinpapelin]> UPDATE producto
+    -> SET stock_actual = 3
+    -> WHERE id_producto = @id_prod_test;
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Verificar si generó log o alerta en la tabla logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     19 |         14 | Actualizacion de datos del usuario | 2026-08-02 20:21:28 |
++--------+------------+------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Insertar producto de prueba válido
+MariaDB [colorinpapelin]> INSERT INTO producto (nombre, descripcion, precio_compra, precio_venta, stock_actual, stock_minimo, id_categoria)
+    -> VALUES ('Cuaderno Test Triggers', 'Prueba Triggers', 2000.00, 4000.00, 10, 5, 1);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id_categoria'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET @id_prod_test = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Disparar Alerta_stock_bajo (UPDATE a stock = 3)
+MariaDB [colorinpapelin]> UPDATE producto
+    -> SET stock_actual = 3
+    -> WHERE id_producto = @id_prod_test;
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Verificar el resultado en la tabla logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                        | fecha_movimiento    |
++--------+------------+------------------------------------+---------------------+
+|     19 |         14 | Actualizacion de datos del usuario | 2026-08-02 20:21:28 |
++--------+------------+------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SHOW CREATE TABLE producto\G
+*************************** 1. row ***************************
+       Table: producto
+Create Table: CREATE TABLE `producto` (
+  `id_producto` int(10) NOT NULL AUTO_INCREMENT,
+  `id_proveedor` int(10) DEFAULT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `descripcion` varchar(500) DEFAULT NULL,
+  `precio_compra` decimal(10,2) NOT NULL,
+  `precio_venta` decimal(10,2) NOT NULL,
+  `url_imagen` varchar(255) DEFAULT NULL,
+  `stock_actual` int(10) DEFAULT NULL,
+  `stock_minimo` int(10) DEFAULT NULL,
+  `id_categoria` int(10) NOT NULL,
+  PRIMARY KEY (`id_producto`),
+  UNIQUE KEY `id_categoria` (`id_categoria`),
+  UNIQUE KEY `id_proveedor` (`id_proveedor`),
+  CONSTRAINT `dsdsd` FOREIGN KEY (`id_proveedor`) REFERENCES `proovedores` (`id_proveedores`),
+  CONSTRAINT `fdf` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Eliminar la Foreign Key que amarra id_categoria (usa el nombre del CONSTRAINT de tu SHOW CREATE TABLE)
+MariaDB [colorinpapelin]> ALTER TABLE producto DROP FOREIGN KEY fk_producto_categoria;
+ERROR 1091 (42000): Can't DROP FOREIGN KEY `fk_producto_categoria`; check that it exists
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Eliminar el índice UNIQUE
+MariaDB [colorinpapelin]> ALTER TABLE producto DROP INDEX id_categoria;
+ERROR 1553 (HY000): Cannot drop index 'id_categoria': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Volver a asociar la Foreign Key como un índice normal
+MariaDB [colorinpapelin]> ALTER TABLE producto
+    -> ADD CONSTRAINT fk_producto_categoria
+    -> FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria);
+Query OK, 3 rows affected (0.093 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> -- Disparar 'Alerta_stock_bajo' actualizando un producto existente (ID = 2)
+MariaDB [colorinpapelin]> UPDATE producto
+    -> SET stock_actual = 2
+    -> WHERE id_producto = 2;
+Query OK, 1 row affected (0.054 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Comprobar si se registró la alerta en logs
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+-------------------------------------------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                                                               | fecha_movimiento    |
++--------+------------+-------------------------------------------------------------------------------------------+---------------------+
+|     20 |          1 | Alerta: El producto "Esfero Kilométrico Azul" alcanzo el stock minimo. Quedan 2 unidades. | 2026-08-02 20:28:46 |
++--------+------------+-------------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Eliminar la Foreign Key 'fdf'
+MariaDB [colorinpapelin]> ALTER TABLE producto DROP FOREIGN KEY fdf;
+Query OK, 0 rows affected (0.011 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Eliminar el índice UNIQUE
+MariaDB [colorinpapelin]> ALTER TABLE producto DROP INDEX id_categoria;
+ERROR 1553 (HY000): Cannot drop index 'id_categoria': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Recrear la Foreign Key como índice normal
+MariaDB [colorinpapelin]> ALTER TABLE producto
+    -> ADD CONSTRAINT fk_producto_categoria
+    -> FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria);
+ERROR 1005 (HY000): Can't create table `colorinpapelin`.`producto` (errno: 121 "Duplicate key on write or update")
+MariaDB [colorinpapelin]> -- 1. Eliminar la Foreign Key 'fdf'
+MariaDB [colorinpapelin]> ALTER TABLE producto DROP FOREIGN KEY fdf;
+ERROR 1091 (42000): Can't DROP FOREIGN KEY `fdf`; check that it exists
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Eliminar el índice UNIQUE
+MariaDB [colorinpapelin]> ALTER TABLE producto DROP INDEX id_categoria;
+ERROR 1553 (HY000): Cannot drop index 'id_categoria': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Recrear la Foreign Key como índice normal
+MariaDB [colorinpapelin]> ALTER TABLE producto
+    -> ADD CONSTRAINT fk_producto_categoria
+    -> FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria);
+ERROR 1005 (HY000): Can't create table `colorinpapelin`.`producto` (errno: 121 "Duplicate key on write or update")
+MariaDB [colorinpapelin]> ALTER TABLE producto DROP FOREIGN KEY fdf;
+ERROR 1091 (42000): Can't DROP FOREIGN KEY `fdf`; check that it exists
+MariaDB [colorinpapelin]> ALTER TABLE producto DROP FOREIGN KEY fk_producto_categoria;
+Query OK, 0 rows affected (0.029 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> -- 1. Eliminar el índice UNIQUE
+MariaDB [colorinpapelin]> ALTER TABLE producto DROP INDEX id_categoria;
+Query OK, 0 rows affected (0.042 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Volver a asociar la Foreign Key como índice normal
+MariaDB [colorinpapelin]> ALTER TABLE producto
+    -> ADD CONSTRAINT fk_producto_categoria
+    -> FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria);
+Query OK, 3 rows affected (0.066 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> -- A. Probar 'validar_stock_disponible' (Intentar pedir 9999 unidades, debe lanzar ERROR por falta de stock)
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, valor_total)
+    -> VALUES (9, 2, 9999, 1500.00, 0.00);
+ERROR 1644 (45000): ERROR: No hay stock para cubrir este pedido.
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- B. Probar 'calcular_total_detalle' y 'descontar_stock_pedido' (Insertar 1 unidad válida)
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, valor_total)
+    -> VALUES (9, 2, 1, 1500.00, 0.00);
+ERROR 1062 (23000): Duplicate entry '9-2' for key 'id_pedido'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- C. Comprobar que el valor_total se calculó solo y el stock bajó a 1
+MariaDB [colorinpapelin]> SELECT id_detalle_pedido, cantidad, precio_unitario, valor_total FROM detalles_pedido WHERE id_pedido = 9;
++-------------------+----------+-----------------+-------------+
+| id_detalle_pedido | cantidad | precio_unitario | valor_total |
++-------------------+----------+-----------------+-------------+
+|                18 |        5 |         1500.00 |     7500.00 |
++-------------------+----------+-----------------+-------------+
+1 row in set (0.002 sec)
+
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |            2 |
++-------------+-------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Disparar 'calcular_total_detalle' y 'descontar_stock_pedido' en el pedido 10
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario, valor_total)
+    -> VALUES (10, 2, 1, 1500.00, 0.00);
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Comprobar que el valor_total se calculó solo y que el stock bajó a 1
+MariaDB [colorinpapelin]> SELECT id_detalle_pedido, id_pedido, cantidad, precio_unitario, valor_total FROM detalles_pedido WHERE id_pedido = 10;
++-------------------+-----------+----------+-----------------+-------------+
+| id_detalle_pedido | id_pedido | cantidad | precio_unitario | valor_total |
++-------------------+-----------+----------+-----------------+-------------+
+|                20 |        10 |        1 |         1500.00 |     1500.00 |
++-------------------+-----------+----------+-----------------+-------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT id_producto, nombre, stock_actual FROM producto WHERE id_producto = 2;
++-------------+-------------------------+--------------+
+| id_producto | nombre                  | stock_actual |
++-------------+-------------------------+--------------+
+|           2 | Esfero Kilométrico Azul |            1 |
++-------------+-------------------------+--------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- A. Agregar previamente un item al carrito para el usuario 4
+MariaDB [colorinpapelin]> INSERT INTO carrito (id_usuario, id_producto, cantidad)
+    -> VALUES (4, 2, 1);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_producto'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Confirmar que hay un item en el carrito
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- B. Registrar la venta asociada al pedido 10 (esto dispara vaciar_carrito y log_nueva_venta)
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (10, 4, NOW(), 1500.00, 0.00, 1500.00, 'Pagado', 'FACT-TEST-10');
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- C. Verificar que el carrito se vació y se registró la traza en logs
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT * FROM logs ORDER BY id_log DESC LIMIT 1;
++--------+------------+----------------------------------------------------------+---------------------+
+| id_log | id_usuario | tipo_accion                                              | fecha_movimiento    |
++--------+------------+----------------------------------------------------------+---------------------+
+|     21 |          4 | Venta registrada exitosamente - Factura N°: FACT-TEST-10 | 2026-08-02 20:33:10 |
++--------+------------+----------------------------------------------------------+---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]> SHOW TRIGGERS FROM colorinpapelin\G
+*************************** 1. row ***************************
+             Trigger: calcular_total_detalle
+               Event: INSERT
+               Table: detalles_pedido
+           Statement: BEGIN
+SET NEW.valor_total = NEW.cantidad * NEW.precio_unitario;
+END
+              Timing: BEFORE
+             Created: 2026-08-02 18:23:48.29
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 2. row ***************************
+             Trigger: validar_stock_dispoible
+               Event: INSERT
+               Table: detalles_pedido
+           Statement: BEGIN
+DECLARE stock_disponible INT;
+SELECT stock_actual INTO stock_disponible
+FROM producto
+WHERE id_producto = NEW.id_producto;
+IF NEW.cantidad > stock_disponible THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: No hay stock para cubrir este pedido.';
+END IF;
+END
+              Timing: BEFORE
+             Created: 2026-08-02 18:23:48.32
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 3. row ***************************
+             Trigger: descontar_stock_pedido
+               Event: INSERT
+               Table: detalles_pedido
+           Statement: BEGIN
+UPDATE producto
+SET stock_actual = stock_actual - NEW.cantidad
+WHERE id_producto = NEW.id_producto;
+END
+              Timing: AFTER
+             Created: 2026-08-02 18:23:48.30
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 4. row ***************************
+             Trigger: actualizar_descuentos
+               Event: INSERT
+               Table: pedidos
+           Statement: BEGIN
+IF NEW.id_descuento IS NOT NULL THEN
+UPDATE descuentos
+SET estado = 'Inactivo'
+WHERE id_descuentos = NEW.id_descuento;
+END IF;
+END
+              Timing: AFTER
+             Created: 2026-08-02 18:23:48.43
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 5. row ***************************
+             Trigger: validar_valores_positivos_producto
+               Event: INSERT
+               Table: producto
+           Statement: BEGIN
+IF NEW.precio_compra < 0 OR NEW.precio_venta < 0 THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: Los precios no pueden ser valores negativos.';
+ELSEIF NEW.stock_actual < 0 THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: El stock actual no puede ser negativo.';
+END IF;
+END
+              Timing: BEFORE
+             Created: 2026-08-02 18:23:48.48
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 6. row ***************************
+             Trigger: Alerta_stock_bajo
+               Event: UPDATE
+               Table: producto
+           Statement: BEGIN
+    IF NEW.stock_actual <= NEW.stock_minimo AND OLD.stock_actual > OLD.stock_minimo THEN
+        INSERT INTO logs(id_usuario, tipo_accion, fecha_movimiento)
+        VALUES (
+            1,
+            CONCAT('Alerta: El producto "', NEW.nombre, '" alcanzo el stock minimo. Quedan ', NEW.stock_actual, ' unidades.'),
+            NOW()
+        );
+    END IF;
+END
+              Timing: AFTER
+             Created: 2026-08-02 19:47:04.02
+            sql_mode: NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION
+             Definer: root@localhost
+character_set_client: cp850
+collation_connection: cp850_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 7. row ***************************
+             Trigger: nuevo_usuario_log
+               Event: INSERT
+               Table: usuario
+           Statement: BEGIN
+    INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+    VALUES (NEW.id_usuario, 'Registro de nuevo usuario', NOW());
+END
+              Timing: AFTER
+             Created: 2026-08-02 20:00:49.19
+            sql_mode: NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION
+             Definer: root@localhost
+character_set_client: cp850
+collation_connection: cp850_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 8. row ***************************
+             Trigger: log_actualizacion_usuario
+               Event: UPDATE
+               Table: usuario
+           Statement: BEGIN
+    INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+    VALUES (NEW.id_usuario, 'Actualizacion de datos del usuario', NOW());
+END
+              Timing: AFTER
+             Created: 2026-08-02 20:00:56.44
+            sql_mode: NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION
+             Definer: root@localhost
+character_set_client: cp850
+collation_connection: cp850_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 9. row ***************************
+             Trigger: vaciar_carrito
+               Event: INSERT
+               Table: ventas
+           Statement: BEGIN
+DELETE FROM carrito
+WHERE id_usuario = NEW.id_usuario;
+END
+              Timing: AFTER
+             Created: 2026-08-02 18:23:48.66
+            sql_mode: NO_AUTO_VALUE_ON_ZERO
+             Definer: root@localhost
+character_set_client: utf8mb4
+collation_connection: utf8mb4_general_ci
+  Database Collation: utf8mb4_general_ci
+*************************** 10. row ***************************
+             Trigger: log_nueva_venta
+               Event: INSERT
+               Table: ventas
+           Statement: BEGIN
+    INSERT INTO logs (id_usuario, tipo_accion, fecha_movimiento)
+    VALUES (
+        NEW.id_usuario,
+        CONCAT('Venta registrada exitosamente - Factura N°: ', COALESCE(NEW.numero_factura, NEW.id_venta)),
+        NOW()
+    );
+END
+              Timing: AFTER
+             Created: 2026-08-02 20:04:11.04
+            sql_mode: NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION
+             Definer: root@localhost
+character_set_client: cp850
+collation_connection: cp850_general_ci
+  Database Collation: utf8mb4_general_ci
+10 rows in set (0.035 sec)
+
+MariaDB [colorinpapelin]> -- 1. Corregir el índice en carrito (por si aún no lo habías ajustado)
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_producto;
+ERROR 1553 (HY000): Cannot drop index 'id_producto': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Insertar un ítem en el carrito para el usuario 4
+MariaDB [colorinpapelin]> INSERT INTO carrito (id_usuario, id_producto, cantidad)
+    -> VALUES (4, 2, 1);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_producto'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Crear un pedido con un ID de descuento (para probar 'actualizar_descuentos')
+MariaDB [colorinpapelin]> -- Supongamos que existe un id_descuento = 1
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta, id_descuento)
+    -> VALUES (4, NOW(), 1, 1, 'Calle Prueba 123', '3000000000', 1500.00, 1);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET @id_pedido_desc = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Registrar la venta del pedido creado (para probar 'vaciar_carrito')
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@id_pedido_desc, 4, NOW(), 1500.00, 0.00, 1500.00, 'Pagado', 'FACT-DESC-1');
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 5. Comprobar que el carrito del usuario 4 quedó en 0 registros
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Corregir el índice en carrito (por si aún no lo habías ajustado)
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_producto;
+ERROR 1553 (HY000): Cannot drop index 'id_producto': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Insertar un ítem en el carrito para el usuario 4
+MariaDB [colorinpapelin]> INSERT INTO carrito (id_usuario, id_producto, cantidad)
+    -> VALUES (4, 2, 1);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_producto'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Crear un pedido con un ID de descuento (para probar 'actualizar_descuentos')
+MariaDB [colorinpapelin]> -- Supongamos que existe un id_descuento = 1
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta, id_descuento)
+    -> VALUES (4, NOW(), 1, 1, 'Calle Prueba 123', '3000000000', 1500.00, 1);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET @id_pedido_desc = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Registrar la venta del pedido creado (para probar 'vaciar_carrito')
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@id_pedido_desc, 4, NOW(), 1500.00, 0.00, 1500.00, 'Pagado', 'FACT-DESC-1');
+ERROR 1062 (23000): Duplicate entry 'FACT-DESC-1' for key 'numero_factura'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 5. Comprobar que el carrito del usuario 4 quedó en 0 registros
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4;-- 1. Corregir el índice en carrito (por si aún no lo habías ajustado)
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_producto;
+ERROR 1553 (HY000): Cannot drop index 'id_producto': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Insertar un ítem en el carrito para el usuario 4
+MariaDB [colorinpapelin]> INSERT INTO carrito (id_usuario, id_producto, cantidad)
+    -> VALUES (4, 2, 1);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_producto'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Crear un pedido con un ID de descuento (para probar 'actualizar_descuentos')
+MariaDB [colorinpapelin]> -- Supongamos que existe un id_descuento = 1
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta, id_descuento)
+    -> VALUES (4, NOW(), 1, 1, 'Calle Prueba 123', '3000000000', 1500.00, 1);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET @id_pedido_desc = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Registrar la venta del pedido creado (para probar 'vaciar_carrito')
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@id_pedido_desc, 4, NOW(), 1500.00, 0.00, 1500.00, 'Pagado', 'FACT-DESC-1');
+ERROR 1062 (23000): Duplicate entry 'FACT-DESC-1' for key 'numero_factura'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 5. Comprobar que el carrito del usuario 4 quedó en 0 registros
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SHOW CREATE TABLE carrito\G
+*************************** 1. row ***************************
+       Table: carrito
+Create Table: CREATE TABLE `carrito` (
+  `id_carrito` int(10) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(10) NOT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `id_producto` int(10) NOT NULL,
+  `cantidad` int(10) NOT NULL,
+  PRIMARY KEY (`id_carrito`),
+  UNIQUE KEY `id_usuario` (`id_usuario`),
+  UNIQUE KEY `id_producto` (`id_producto`),
+  CONSTRAINT `fgdgf` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`),
+  CONSTRAINT `fk_car_us` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+1 row in set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Reemplaza 'nombre_fk_actual' por el CONSTRAINT que aparezca en el SHOW CREATE TABLE
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP FOREIGN KEY nombre_fk_actual;
+ERROR 1091 (42000): Can't DROP FOREIGN KEY `nombre_fk_actual`; check that it exists
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Eliminar el índice UNIQUE
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_producto;
+ERROR 1553 (HY000): Cannot drop index 'id_producto': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Volver a crear la Foreign Key normal
+MariaDB [colorinpapelin]> ALTER TABLE carrito
+    -> ADD CONSTRAINT fk_carrito_producto
+    -> FOREIGN KEY (id_producto) REFERENCES producto(id_producto);-- 1. Insertar item en carrito (ahora sí debe permitirlo)
+Query OK, 3 rows affected (0.088 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]> INSERT INTO carrito (id_usuario, id_producto, cantidad)
+    -> VALUES (4, 2, 1);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_producto'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Confirmar que se guardó en carrito
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Crear pedido con id_descuento = 1
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta, id_descuento)
+    -> VALUES (4, NOW(), 1, 1, 'Calle Prueba 123', '3000000000', 1500.00, 1);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET @id_pedido_desc = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Registrar venta (dispara vaciar_carrito) con factura única
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@id_pedido_desc, 4, NOW(), 1500.00, 0.00, 1500.00, 'Pagado', 'FACT-DESC-100');
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 4. Verificaciones finales
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4; -- Debe retornar Empty set
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]> SELECT id_descuento, estado FROM descuentos WHERE id_descuento = 1; -- Debe mostrar 'Inactivo'{
+ERROR 1054 (42S22): Unknown column 'id_descuento' in 'field list'
+MariaDB [colorinpapelin]> -- 1. Eliminar la Foreign Key que amarra id_producto
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP FOREIGN KEY fgdgf;
+Query OK, 0 rows affected (0.033 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Eliminar las restricciones UNIQUE de id_producto e id_usuario
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_producto;
+ERROR 1553 (HY000): Cannot drop index 'id_producto': needed in a foreign key constraint
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_usuario;
+ERROR 1553 (HY000): Cannot drop index 'id_usuario': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Recrear la Foreign Key como índice normal
+MariaDB [colorinpapelin]> ALTER TABLE carrito
+    -> ADD CONSTRAINT fk_carrito_producto
+    -> FOREIGN KEY (id_producto) REFERENCES producto(id_producto);
+ERROR 1005 (HY000): Can't create table `colorinpapelin`.`carrito` (errno: 121 "Duplicate key on write or update")
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 1. Eliminar la Foreign Key que amarra id_producto
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP FOREIGN KEY fgdgf;
+ERROR 1091 (42000): Can't DROP FOREIGN KEY `fgdgf`; check that it exists
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Eliminar las restricciones UNIQUE de id_producto e id_usuario
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_producto;
+ERROR 1553 (HY000): Cannot drop index 'id_producto': needed in a foreign key constraint
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_usuario;
+ERROR 1553 (HY000): Cannot drop index 'id_usuario': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Recrear la Foreign Key como índice normal
+MariaDB [colorinpapelin]> ALTER TABLE carrito
+    -> ADD CONSTRAINT fk_carrito_producto
+    -> FOREIGN KEY (id_producto) REFERENCES producto(id_producto);
+ERROR 1005 (HY000): Can't create table `colorinpapelin`.`carrito` (errno: 121 "Duplicate key on write or update")
+MariaDB [colorinpapelin]> -- A. Insertar ítem en carrito para el usuario 4 (ahora sin errores)
+MariaDB [colorinpapelin]> INSERT INTO carrito (id_usuario, id_producto, cantidad)
+    -> VALUES (4, 2, 1);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_producto'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Verificar que el ítem ingresó
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- B. Probar el trigger 'actualizar_descuentos' creando un pedido con id_descuento = 1
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta, id_descuento)
+    -> VALUES (4, NOW(), 1, 1, 'Calle Prueba 123', '3000000000', 1500.00, 1);
+Query OK, 1 row affected (0.010 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET @id_pedido_desc = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- C. Probar el trigger 'vaciar_carrito' registrando la venta con una nueva factura
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@id_pedido_desc, 4, NOW(), 1500.00, 0.00, 1500.00, 'Pagado', 'FACT-DESC-200');
+Query OK, 1 row affected (0.008 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- D. Verificaciones
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4; -- Debe retornar Empty set (vaciar_carrito actuó)
+Empty set (0.002 sec)
+
+MariaDB [colorinpapelin]> SELECT id_descuento, estado FROM descuentos WHERE id_descuento = 1; -- Debe mostrar 'Inactivo' (actualizar_descuentos actuó)
+ERROR 1054 (42S22): Unknown column 'id_descuento' in 'field list'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 1. Ver la estructura de la tabla descuentos
+MariaDB [colorinpapelin]> DESCRIBE descuentos;
++----------------------+--------------+------+-----+---------+----------------+
+| Field                | Type         | Null | Key | Default | Extra          |
++----------------------+--------------+------+-----+---------+----------------+
+| id_descuentos        | int(10)      | NO   | PRI | NULL    | auto_increment |
+| nombre               | varchar(100) | NO   |     | NULL    |                |
+| fecha_inicio         | date         | NO   |     | NULL    |                |
+| fecha_fin            | date         | NO   |     | NULL    |                |
+| estado               | varchar(20)  | YES  |     | NULL    |                |
+| porcentaje_descuento | decimal(5,2) | NO   |     | NULL    |                |
++----------------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.046 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Consultar el estado del descuento 1 (usando la columna correcta)
+MariaDB [colorinpapelin]> SELECT * FROM descuentos;-- 1. Eliminar AMBAS llaves foráneas
++---------------+-------------------+--------------+------------+----------+----------------------+
+| id_descuentos | nombre            | fecha_inicio | fecha_fin  | estado   | porcentaje_descuento |
++---------------+-------------------+--------------+------------+----------+----------------------+
+|             1 | Regreso a Clases  | 2026-01-10   | 2026-02-28 | Inactivo |                10.00 |
+|             2 | Cliente Frecuente | 2026-03-01   | 2026-12-31 | Inactivo |                15.00 |
+|             3 | Fin de Año        | 2026-12-01   | 2026-12-31 | Inactivo |                20.00 |
++---------------+-------------------+--------------+------------+----------+----------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP FOREIGN KEY fgdgf;
+ERROR 1091 (42000): Can't DROP FOREIGN KEY `fgdgf`; check that it exists
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP FOREIGN KEY fk_car_us;
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Eliminar los índices UNIQUE
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_producto;
+ERROR 1553 (HY000): Cannot drop index 'id_producto': needed in a foreign key constraint
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_usuario;
+Query OK, 0 rows affected (0.011 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 3. Volver a asociar las llaves foráneas como índices estándar
+MariaDB [colorinpapelin]> ALTER TABLE carrito
+    -> ADD CONSTRAINT fk_carrito_producto FOREIGN KEY (id_producto) REFERENCES producto(id_producto),
+    -> ADD CONSTRAINT fk_carrito_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
+ERROR 1005 (HY000): Can't create table `colorinpapelin`.`carrito` (errno: 121 "Duplicate key on write or update")
+MariaDB [colorinpapelin]> -- A. Insertar un ítem al carrito del usuario 4
+MariaDB [colorinpapelin]> INSERT INTO carrito (id_usuario, id_producto, cantidad) VALUES (4, 2, 1);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_producto'
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4; -- Debe mostrar 1 fila
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- B. Crear pedido y registrar la venta (dispara 'vaciar_carrito')
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta)
+    -> VALUES (4, NOW(), 1, 1, 'Calle Prueba', '3000000000', 1500.00);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET @ultimo_pedido = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@ultimo_pedido, 4, NOW(), 1500.00, 0.00, 1500.00, 'Pagado', 'FACT-TEST-FINAL');
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- C. Confirmar que el carrito del usuario 4 volvió a quedar vacío
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4; -- Debe retornar Empty set
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]> -- 1. Eliminar el índice único de id_producto
+MariaDB [colorinpapelin]> ALTER TABLE carrito DROP INDEX id_producto;
+ERROR 1553 (HY000): Cannot drop index 'id_producto': needed in a foreign key constraint
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- 2. Volver a crear la Foreign Key sobre id_producto como índice normal
+MariaDB [colorinpapelin]> ALTER TABLE carrito
+    -> ADD CONSTRAINT fk_carrito_producto
+    -> FOREIGN KEY (id_producto) REFERENCES producto(id_producto);
+ERROR 1005 (HY000): Can't create table `colorinpapelin`.`carrito` (errno: 121 "Duplicate key on write or update")
+MariaDB [colorinpapelin]> -- A. Insertar producto en el carrito (ahora pasará sin ERROR 1062)
+MariaDB [colorinpapelin]> INSERT INTO carrito (id_usuario, id_producto, cantidad) VALUES (4, 2, 1);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_producto'
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- Confirmar que el producto quedó en el carrito
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- B. Crear pedido y registrar la venta (dispara 'vaciar_carrito')
+MariaDB [colorinpapelin]> INSERT INTO pedidos (id_usuario, fecha_pedido, estado, id_metodo, direccion_envio, telefono_envio, total_venta)
+    -> VALUES (4, NOW(), 1, 1, 'Calle Prueba Final', '3000000000', 1500.00);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> SET @id_ped_final = LAST_INSERT_ID();
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> INSERT INTO ventas (id_pedido, id_usuario, fecha_venta, subtotal, descuentos, total, estado_pago, numero_factura)
+    -> VALUES (@id_ped_final, 4, NOW(), 1500.00, 0.00, 1500.00, 'Pagado', 'FACT-CARRITO-100');
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [colorinpapelin]>
+MariaDB [colorinpapelin]> -- C. Verificar que el carrito del usuario 4 se vació automáticamente
+MariaDB [colorinpapelin]> SELECT * FROM carrito WHERE id_usuario = 4;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelin]> INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario)
+    -> VALUES (1, 2, 999999, 1500.00);
+ERROR 1644 (45000): ERROR: No hay stock para cubrir este pedido.
+MariaDB [colorinpapelin]>

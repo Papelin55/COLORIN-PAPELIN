@@ -1,0 +1,186 @@
+Microsoft Windows [Versión 6.3.9600]
+(c) 2013 Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\Enrique>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 109
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> USE colorinpapelin;
+ERROR 1049 (42000): Unknown database 'colorinpapelin'
+MariaDB [(none)]> USE colorinpapelinbasedatos;
+Database changed
+MariaDB [colorinpapelinbasedatos]> SELECT nombre, precio_venta FROM producto;
++--------------------------+--------------+
+| nombre                   | precio_venta |
++--------------------------+--------------+
+| Cuaderno Norma 100 hojas |      8500.00 |
+| Esfero Kilométrico Azul  |      2000.00 |
+| Resma Carta Reprograf    |     24000.00 |
++--------------------------+--------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT * FROM producto WHERE precio_venta < 1
+0000;
++-------------+--------------+--------------------------+-----------------------
++---------------+--------------+--------------+--------------+--------------+---
+-----------+
+| id_producto | id_proveedor | nombre                   | descripcion
+| precio_compra | precio_venta | url_imagen   | stock_actual | stock_minimo | id
+_categoria |
++-------------+--------------+--------------------------+-----------------------
++---------------+--------------+--------------+--------------+--------------+---
+-----------+
+|           1 |            1 | Cuaderno Norma 100 hojas | Cuaderno cuadriculado
+|       6500.00 |      8500.00 | cuaderno.jpg |          120 |           20 |
+         1 |
+|           2 |            2 | Esfero Kilométrico Azul  | Bolígrafo tinta azul
+|       1200.00 |      2000.00 | esfero.jpg   |          300 |           50 |
+         2 |
++-------------+--------------+--------------------------+-----------------------
++---------------+--------------+--------------+--------------+--------------+---
+-----------+
+2 rows in set (0.001 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT COUNT(*) AS total_productos FROM produ
+cto;
++-----------------+
+| total_productos |
++-----------------+
+|               3 |
++-----------------+
+1 row in set (0.061 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT nombre, apellido, correo FROM usuario
+WHERE id_rol = 2;
++--------+----------+--------------------------+
+| nombre | apellido | correo                   |
++--------+----------+--------------------------+
+| María  | González | maria.gonzalez@gmail.com |
++--------+----------+--------------------------+
+1 row in set (0.072 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT nombre_categoria FROM categoria;
++------------------+
+| nombre_categoria |
++------------------+
+| Útiles Escolares |
+| Papelería        |
+| Oficina          |
++------------------+
+3 rows in set (0.020 sec)
+
+MariaDB [colorinpapelinbasedatos]> INSERT INTO usuario (nombre, apellido, correo
+, contraseña, telefono, telefono_secundario, id_rol)
+    -> VALUES ('Ana', 'López', 'ana.lopez@gmail.com', '1234', '3134567890', '323
+4567890', 2);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_rol'
+MariaDB [colorinpapelinbasedatos]> INSERT INTO usuario (nombre, apellido, correo
+, contraseña, telefono, telefono_secundario, id_rol)
+    -> VALUES ('María', 'García', 'maria.garcia2026@gmail.com', '1234', '3001234
+567', '3111234567', 2);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_rol'
+MariaDB [colorinpapelinbasedatos]> INSERT INTO producto (nombre, descripcion, pr
+ecio_compra, precio_venta, stock_actual, stock_minimo, id_categoria, id_proveedo
+r)
+    -> VALUES ('Marcador Permanente', 'Marcador punta fina para pizarra blanca',
+ 2500.00, 4500.00, 100, 15, 2, 2);
+ERROR 1062 (23000): Duplicate entry '2' for key 'id_categoria'
+MariaDB [colorinpapelinbasedatos]> SELECT nombre, stock_actual, stock_minimo
+    -> FROM producto
+    -> WHERE stock_actual < 30;
+Empty set (0.001 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT p.id_pedido, p.total_venta, m.nombre_m
+etodo
+    -> FROM pedidos p
+    -> JOIN metodo_pago m ON p.id_metodo = m.id_metodo;
++-----------+-------------+---------------+
+| id_pedido | total_venta | nombre_metodo |
++-----------+-------------+---------------+
+|         1 |    25500.00 | Efectivo      |
+|         2 |    24000.00 | Nequi         |
+|         3 |    40000.00 | Efectivo      |
++-----------+-------------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT p.id_pedido, p.total_venta, m.nombre_m
+etodo
+    -> FROM pedidos p
+    ->
+    ->
+    -> SELECT u.nombre, u.apellido, r.nombre_rol
+    -> FROM usuario u
+    -> JOIN roles r ON u.id_rol = r.id_rol;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'SEL
+ECT u.nombre, u.apellido, r.nombre_rol
+FROM usuario u
+JOIN roles r ON u.i...' at line 5
+MariaDB [colorinpapelinbasedatos]> SELECT u.nombre, u.apellido, r.nombre_rol
+    -> FROM usuario u
+    -> JOIN roles r ON u.id_rol = r.id_rol;
++--------+-----------+---------------+
+| nombre | apellido  | nombre_rol    |
++--------+-----------+---------------+
+| Juan   | Rodríguez | Administrador |
+| María  | González  | Cliente       |
+| Carlos | Martínez  | Empleado      |
++--------+-----------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT nombre, precio_venta FROM producto ORD
+ER BY precio_venta DESC LIMIT 2;
++--------------------------+--------------+
+| nombre                   | precio_venta |
++--------------------------+--------------+
+| Resma Carta Reprograf    |     24000.00 |
+| Cuaderno Norma 100 hojas |      8500.00 |
++--------------------------+--------------+
+2 rows in set (0.001 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT u.nombre, COUNT(p.id_pedido) AS total_
+pedidos
+    -> FROM usuario u
+    -> LEFT JOIN pedidos p ON u.id_usuario = p.id_usuario
+    -> GROUP BY u.id_usuario;
++--------+---------------+
+| nombre | total_pedidos |
++--------+---------------+
+| Juan   |             1 |
+| María  |             1 |
+| Carlos |             1 |
++--------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT numero_factura, fecha_venta, total, es
+tado_pago
+    -> FROM ventas
+    -> ORDER BY fecha_venta DESC;
++----------------+---------------------+----------+-------------+
+| numero_factura | fecha_venta         | total    | estado_pago |
++----------------+---------------------+----------+-------------+
+| FAC-003        | 2026-07-03 00:00:00 | 36000.00 | Pendiente   |
+| FAC-002        | 2026-07-02 00:00:00 | 21600.00 | Pagado      |
+| FAC-001        | 2026-07-01 00:00:00 | 22950.00 | Pagado      |
++----------------+---------------------+----------+-------------+
+3 rows in set (0.065 sec)
+
+MariaDB [colorinpapelinbasedatos]> SELECT numero_factura, fecha_venta, total, es
+tado_pago
+    -> FROM ventas
+    -> ORDER BY fecha_venta DESC;Bye
+Ctrl-C -- exit!
+
+C:\xampp\mysql\bin>
