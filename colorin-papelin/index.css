@@ -1,0 +1,88 @@
+/* ESTILOS DEL SLIDER HERO (Optimizado para no romper la maquetación del index) */
+        .hero-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            margin-bottom: 2rem;
+            background: #fffbf7;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .hero-slider {
+            display: flex;
+            width: 200%; /* Dos vistas fijas (100% cada una) */
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .hero-slide {
+            width: 50%;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        /* Flechas de navegación */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e4e7eb;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2d3436;
+            font-size: 1rem;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        .slider-btn:hover {
+            background: white !important;
+            color: #cb8d62 !important;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .slider-btn.prev { left: 20px; }
+        .slider-btn.next { right: 20px; }
+
+        /* Puntos indicadores inferiores */
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dot.active {
+            background: #2d3436 !important;
+            width: 24px !important;
+            border-radius: 10px !important;
+        }
+
+        /* Animaciones para los elementos interactivos */
+        @keyframes floatIcon {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(8deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes floatBanner {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .promo-banner button:hover {
+            transform: scale(1.03);
+        }

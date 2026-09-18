@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Colorín Papelín – Intro</title>
+  <link rel="stylesheet" href="intro.css">
+</head>
+<body>
+<div id="stage">
+
+  <!-- Avión izquierdo -->
+  <svg class="plane" style="left:80px; top:120px; animation-delay:0.3s;" width="80" height="56" viewBox="0 0 80 56">
+    <polygon points="0,0 80,24 0,48" fill="#B45F32"/>
+    <polygon points="0,0 80,24 40,31" fill="#8B3E1A"/>
+  </svg>
+
+  <!-- Avión derecho -->
+  <svg class="plane plane-right" style="right:76px; top:106px; animation-delay:0.5s;" width="80" height="56" viewBox="0 0 80 56">
+    <g transform="scale(-1,1) translate(-80,0)">
+      <polygon points="0,0 80,24 0,48" fill="#D4936A"/>
+      <polygon points="0,0 80,24 40,31" fill="#B45F32"/>
+    </g>
+  </svg>
+
+  <div id="logo-line1">Colorín</div>
+  <div id="logo-line2">Papelín</div>
+  <div id="tagline">ARTE · COLOR · TEXTURA</div>
+
+  <div id="bar-row">
+    <div class="bar-seg" style="background:#E8B98A"></div>
+    <div class="bar-seg" style="background:#D4936A"></div>
+    <div class="bar-seg" style="background:#C27840"></div>
+    <div class="bar-seg" style="background:#B45F32"></div>
+    <div class="bar-seg" style="background:#93461F"></div>
+    <div class="bar-seg" style="background:#7A3516"></div>
+    <div class="bar-seg" style="background:#65321E"></div>
+  </div>
+
+  <button id="enter-btn" onclick="window.location.href='index.html'">
+    inicio
+  </button>
+
+</div>
+
+<script src="intro.js"></script>
+</body>
+</html>

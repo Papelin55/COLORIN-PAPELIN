@@ -1,0 +1,143 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #FEF5ED;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    #stage {
+      width: 100%;
+      max-width: 860px;
+      height: 100vh;
+      background: #FEF5ED;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    /* ---------- dots & confetti ---------- */
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: popIn 0.4s ease forwards;
+    }
+    .confetti-sq {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      opacity: 0;
+      animation: popIn 0.3s ease forwards;
+    }
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    /* ---------- planes ---------- */
+    .plane {
+      position: absolute;
+      opacity: 0;
+      animation: flyIn 0.7s cubic-bezier(.22,.68,0,1.2) forwards;
+    }
+    .plane-right { animation-name: flyInRight; }
+    @keyframes flyIn {
+      from { transform: translateX(-140px) translateY(30px) rotate(-15deg); opacity: 0; }
+      to   { transform: translateX(0) translateY(0) rotate(0deg); opacity: 1; }
+    }
+    @keyframes flyInRight {
+      from { transform: translateX(140px) translateY(-30px) rotate(15deg); opacity: 0; }
+      to   { transform: translateX(0) translateY(0) rotate(0deg); opacity: 1; }
+    }
+
+    /* ---------- text ---------- */
+    #logo-line1 {
+      font-size: clamp(42px, 8vw, 68px);
+      font-weight: 700;
+      color: #65321E;
+      letter-spacing: 2px;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: riseIn 0.7s cubic-bezier(.22,.68,0,1.2) forwards;
+      animation-delay: 0.9s;
+      line-height: 1.05;
+      position: relative;
+      z-index: 2;
+    }
+    #logo-line2 {
+      font-size: clamp(42px, 8vw, 68px);
+      font-weight: 700;
+      color: #B45F32;
+      letter-spacing: 2px;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: riseIn 0.7s cubic-bezier(.22,.68,0,1.2) forwards;
+      animation-delay: 1.15s;
+      line-height: 1.05;
+      position: relative;
+      z-index: 2;
+    }
+    #tagline {
+      font-style: italic;
+      font-size: 14px;
+      color: #C27840;
+      letter-spacing: 3px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+      animation-delay: 1.55s;
+      margin-top: 14px;
+      position: relative;
+      z-index: 2;
+    }
+    #bar-row {
+      display: flex;
+      gap: 5px;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      animation-delay: 1.8s;
+      position: relative;
+      z-index: 2;
+    }
+    .bar-seg {
+      height: 5px;
+      width: 44px;
+      border-radius: 3px;
+    }
+    #enter-btn {
+      margin-top: 32px;
+      padding: 13px 42px;
+      background: #B45F32;
+      color: #FEF5ED;
+      border: none;
+      border-radius: 50px;
+      font-family: Georgia, serif;
+      font-size: 16px;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      animation-delay: 2.1s;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, transform 0.15s;
+      position: relative;
+      z-index: 2;
+    }
+    #enter-btn:hover  { background: #93461F; }
+    #enter-btn:active { transform: scale(0.97); }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }

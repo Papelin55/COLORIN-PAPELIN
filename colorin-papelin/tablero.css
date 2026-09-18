@@ -1,0 +1,169 @@
+/* Ajustes específicos para integrar las herramientas de dibujo sin romper tu style.css */
+        :root {
+            --color-principal: #cb8d62;
+            --color-secundario: #fbeee6;
+            --texto-oscuro: #2d3436;
+            --bg-gris: #f8f9fa;
+            --borde: #e4e7eb;
+        }
+
+        /* Contenedor dividido para herramientas y lienzo dentro del bloque de contenido principal */
+        .tablero-workspace {
+            display: flex;
+            gap: 25px;
+            height: calc(100vh - 160px); /* Resta el espacio de la top-bar y footer */
+            margin-bottom: 20px;
+        }
+
+        /* BARRA DE HERRAMIENTAS INTERNA (Estilizada como tus tarjetas de promos) */
+        .panel-herramientas {
+            width: 280px;
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border: 1px solid var(--borde);
+        }
+
+        .seccion-control {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-bottom: 1px solid #f9f9f9;
+            padding-bottom: 15px;
+        }
+        .seccion-control:last-of-type { border-bottom: none; }
+
+        .seccion-control h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #a0a0a0;
+            font-weight: 600;
+        }
+
+        /* Reutilización del estilo de botones de tu interfaz */
+        .grid-herramientas {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .btn-dibujo {
+            background-color: var(--bg-gris);
+            border: 1px solid transparent;
+            padding: 10px 5px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-dibujo i { font-size: 1rem; color: #888; }
+
+        .btn-dibujo:hover, .btn-dibujo.activo {
+            border-color: var(--color-principal);
+            color: var(--color-principal);
+            background-color: var(--color-secundario);
+        }
+        .btn-dibujo.activo i { color: var(--color-principal); }
+
+        /* Sliders e inputs de color */
+        .input-inline { display: flex; align-items: center; gap: 10px; }
+        input[type="color"] {
+            -webkit-appearance: none; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; background: none; flex-shrink: 0;
+        }
+        input[type="color"]::-webkit-color-swatch { border: 2px solid var(--borde); border-radius: 50%; }
+        input[type="range"] { flex: 1; accent-color: var(--color-principal); cursor: pointer; }
+        .txt-medida { font-size: 0.8rem; font-weight: 600; min-width: 35px; text-align: right; }
+
+        /* NUEVA CUADRÍCULA DE COLORES POPULARES */
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .color-swatch {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.15);
+        }
+
+        .color-swatch.activo-swatch {
+            border-color: var(--texto-oscuro);
+            transform: scale(1.1);
+        }
+
+        /* Acciones inferiores basadas en tus clases primarias y de alerta */
+        .btn-borrar-todo {
+            background-color: #ff7675; color: white; border: none; padding: 12px;
+            border-radius: 16px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.85rem; transition: background 0.2s;
+        }
+        .btn-borrar-todo:hover { background-color: #ee5253; }
+
+        /* CONTENEDOR DEL LIENZO (DERECHA) */
+        .area-lienzo {
+            flex: 1;
+            background: #ffeede; /* Tono cálido de tus secciones */
+            border-radius: 32px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        canvas {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            cursor: crosshair;
+            display: block;
+        }
+
+        /* Modificadores de fondo estilo papelería */
+        canvas.papel-cuadricula {
+            background-image: linear-gradient(to right, #edf2f7 1px, transparent 1px), linear-gradient(to bottom, #edf2f7 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        canvas.papel-puntos {
+            background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
+            background-size: 20px 20px;
+        }
+
+/* ===== Galería de plantillas destacadas ===== */
+.plantillas-bar {
+    display: flex; align-items: center; gap: 14px; margin: 0 2rem 1.2rem; flex-wrap: wrap;
+}
+.plantillas-label { font-size: 0.85rem; font-weight: 600; color: #7a6248; white-space: nowrap; }
+.plantillas-scroll { display: flex; gap: 10px; flex-wrap: wrap; }
+.plantilla-chip {
+    background: white; border: 1px solid #f2ddca; border-radius: 40px; padding: 0.55rem 1.1rem;
+    font-size: 0.82rem; font-weight: 600; color: #7a6248; cursor: pointer; transition: 0.2s;
+    display: flex; align-items: center; gap: 8px; white-space: nowrap;
+}
+.plantilla-chip:hover { background: #fdf3ec; border-color: #cf8a5c; color: #ac6b3e; }
+.plantilla-chip i { color: #cf8a5c; }

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Colorín Papelín | Papelería creativa</title>
+    <!-- Fuentes modernas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (iconos) - versión estable completa -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="animacion.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="app-wrapper">
+    <!-- SIDEBAR DESPLEGABLE -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-area">
+            <div class="logo">Colorín Papelín</div>
+            <div class="logo-sub">Arte, color & textura</div>
+        </div>
+
+        <div class="nav-menu">
+            <button class="nav-item active" data-section="inicio"><i class="fas fa-home"></i> <span>Inicio</span></button>
+            <button class="nav-item" data-section="productos"><i class="fas fa-pencil-ruler"></i> <span>Productos</span></button>
+            <button class="nav-item" data-section="libretas"><i class="fas fa-book"></i> <span>Libretas</span></button>
+            
+            <!-- BOTÓN DE REDIRECCIÓN AL TABLERO DE DIBUJO -->
+            <button class="nav-item" onclick="window.location.href='tablero.html'"><i class="fas fa-palette"></i> <span>Tablero</span></button>
+            <button class="nav-item" onclick="window.location.href='pedidos.html'"><i class="fas fa-box-open"></i> <span>Mis pedidos</span></button>
+            <button class="nav-item" data-section="promos"><i class="fas fa-tags"></i> <span>Promociones</span></button>
+            <button class="nav-item" data-section="contacto"><i class="fas fa-paper-plane"></i> <span>Contacto</span></button>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- BOTÓN TOGGLE (abrir/cerrar) - Tres líneas -->
+    <button class="toggle-sidebar-btn" id="toggleSidebarBtn">
+        <i class="fas fa-bars" id="toggleIcon"></i>
+    </button>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content" id="mainContent">
+        <div class="top-bar">
+            <div class="top-bar-actions">
+                <a class="login-link" id="volverPanelLink" href="#" style="display:none;"></a>
+                <a class="login-link" data-auth href="login-v2.html"><i class="fas fa-user"></i> Iniciar sesión</a>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span id="cartCount">0 artículos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIONES -->
+        <div id="inicioSection">
+            
+            <!-- CONTENEDOR DEL SLIDER HERO -->
+            <div class="hero-container">
+                <button class="slider-btn prev" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+                
+                <div class="hero-slider" id="heroSlider">
+                    
+                    <!-- DIAPOSITIVA 1: IDENTIDAD ORIGINAL -->
+                    <div class="hero-slide">
+                        <div class="hero" style="margin-bottom: 0; border-radius: 0; min-height: 380px;">
+                            <div class="hero-text">
+                                <h1>Color, papel<br>y mucha magia</h1>
+                                <p>En Colorín Papelín encontrarás libretas, sets de lettering y accesorios únicos que despiertan tu creatividad.</p>
+                                <button class="btn-primary" id="heroBtn">Ver novedades <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                            <div class="hero-image">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DIAPOSITIVA 2: PUBLICIDAD DEL TABLERO -->
+                    <div class="hero-slide">
+                        <div class="hero" style="margin-bottom: 0; border-radius: 0; background: linear-gradient(135deg, #ffeede 0%, #fceddf 100%); min-height: 380px;">
+                            <div class="hero-text">
+                                <span style="background: #cb8d62; color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(207,141,98,0.2);">¡Estudio Creativo!</span>
+                                <h1 style="color: #2d3436;">Tu propio lienzo<br>virtual interactivo</h1>
+                                <p>Prueba pinceles mágicos, efectos de acuarela y cuadrículas bullet journal. ¡Diseña tus portadas gratis!</p>
+                                <button class="btn-primary" onclick="window.location.href='tablero.html'" style="background: #2d3436; color: white; border-color: #2d3436;">
+                                    Abrir Tablero <i class="fas fa-paint-brush" style="margin-left: 8px;"></i>
+                                </button>
+                            </div>
+                            <div class="hero-image" style="color: #cb8d62; animation: floatIcon 4s ease-in-out infinite;">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Puntos de posición -->
+                <div class="slider-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                </div>
+            </div>
+            
+            <div class="featured-section">
+                <div class="section-header">
+                    <h3>✨ Favoritos de la semana</h3>
+                    <div class="link-more" id="verMasLink">Ver más →</div>
+                </div>
+                <div class="products-grid" id="featuredGrid"></div>
+            </div>
+
+            <!-- ANUNCIO PUBLICITARIO DEBAJO -->
+            <div class="promo-banner" style="background: linear-gradient(135deg, #cb8d62 0%, #fbeee6 100%); padding: 2.5rem 2rem; border-radius: 32px; display: flex; justify-content: space-between; align-items: center; gap: 20px; box-shadow: 0 15px 30px rgba(203, 141, 98, 0.15); flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 20px; flex: 1; min-width: 280px;">
+                    <div style="background: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 8px 15px rgba(0,0,0,0.05); animation: floatBanner 3s ease-in-out infinite;">
+                        <i class="fas fa-paint-brush" style="font-size: 1.8rem; color: #cb8d62;"></i>
+                    </div>
+                    <div style="text-align: left;">
+                        <h4 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #2d3436; margin-bottom: 4px;">¡Prueba nuestro Lienzo Virtual! 🎨</h4>
+                        <p style="color: #555; font-size: 0.95rem; margin: 0;">Diseña, experimenta con pinceles mágicos y crea tus propias portadas gratis.</p>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="window.location.href='tablero.html'" style="background: #2d3436; color: white; padding: 14px 28px; font-weight: 600; font-size: 0.95rem; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); white-space: nowrap; transition: transform 0.2s;">
+                    ¡Empezar a dibujar! <i class="fas fa-magic" style="margin-left: 8px;"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- OTRAS SECCIONES -->
+        <div id="productosSection" style="display: none;">
+            <div class="featured-section">
+                <div class="section-header"><h3>📦 Todos los productos</h3></div>
+                <div class="products-grid" id="allProductsGrid"></div>
+            </div>
+        </div>
+        
+        <div id="libretasSection" style="display: none;">
+            <div class="featured-section">
+                <div class="section-header"><h3>📘 Libretas artesanales</h3></div>
+                <div class="products-grid" id="notebooksGrid"></div>
+            </div>
+        </div>
+        
+        <div id="promosSection" style="display: none;">
+            <div class="featured-section">
+                <div class="section-header"><h3>🔥 Promociones activas</h3></div>
+                <div class="products-grid" id="descuentosGrid" style="margin-bottom:2.2rem;"></div>
+
+                <div class="section-header"><h3>🏷️ Productos en descuento ahora</h3></div>
+                <div class="products-grid" id="productosDescuentoGrid" style="margin-bottom:2.2rem;"></div>
+
+                <div class="section-header"><h3>🎁 Kits con descuento</h3></div>
+                <div class="products-grid" id="kitsGrid"></div>
+            </div>
+        </div>
+        
+        <div id="contactoSection" style="display: none;">
+            <div class="hero" style="flex-direction: column; text-align: center; margin-bottom:1.5rem;">
+                <i class="fas fa-envelope-open-text" style="font-size: 3rem; color:#cb8d62;"></i>
+                <h2>¡Hablemos!</h2>
+                <p>Email: hola@colorinpapelin.com · Tel: +57 300 456 7890</p>
+                <p>📍 Cra 5 # 12-34, Ciudad Verde · Soacha, Cundinamarca</p>
+                <p style="color:#7a6248;"><i class="fas fa-clock"></i> Lun–Sáb: 8:00am – 7:00pm · Dom: 9:00am – 2:00pm</p>
+                <div style="display:flex; gap:12px; margin-top:1rem; flex-wrap:wrap; justify-content:center;">
+                    <a href="https://wa.me/573004567890" target="_blank" class="btn-primary" style="background:#25D366; border-color:#25D366; text-decoration:none;">
+                        <i class="fab fa-whatsapp"></i> Escríbenos por WhatsApp
+                    </a>
+                    <button class="btn-primary" id="contactBtn">Enviar mensaje →</button>
+                </div>
+            </div>
+
+            <div class="featured-section">
+                <div class="section-header"><h3>❓ Preguntas frecuentes</h3></div>
+                <div class="faq-list" id="faqList"></div>
+            </div>
+        </div>
+        
+        <footer>🌈 Colorín Papelín · Donde las ideas encuentran su papel · Soacha, Colombia · 2026</footer>
+    </main>
+</div>
+
+<!-- LÓGICA JAVASCRIPT INTEGRADA DEL SLIDER -->
+<script src="index.js"></script>
+</body>
+</html>

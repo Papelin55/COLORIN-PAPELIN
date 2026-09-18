@@ -1,0 +1,26 @@
+.pedidos-list { display: flex; flex-direction: column; gap: 16px; margin: 0 2rem 2rem; }
+.pedido-card { background: white; border: 1px solid #fbe8d9; border-radius: 26px; overflow: hidden; }
+.pedido-header {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 1.1rem 1.5rem; cursor: pointer; background: #fffaf5;
+}
+.pedido-header:hover { background: #fdf3ea; }
+.pedido-header-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.pedido-id { font-weight: 700; color: #3a2c1f; font-family: 'Playfair Display', serif; font-size: 1.05rem; }
+.pedido-fecha { font-size: 0.82rem; color: #a08a72; }
+.pedido-total { font-weight: 700; color: #bc764b; }
+.pedido-toggle { color: #cf8a5c; transition: transform 0.2s; }
+.pedido-card.open .pedido-toggle { transform: rotate(180deg); }
+.pedido-body { display: none; padding: 0 1.5rem 1.5rem; }
+.pedido-card.open .pedido-body { display: block; }
+.pedido-item-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px solid #fbf2e9; }
+.pedido-item-row:last-child { border-bottom: none; }
+.pedido-item-icon {
+    width: 42px; height: 42px; border-radius: 14px; background: #fef3ea; color: #b26d42;
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+}
+.pedido-item-name { flex: 1; font-size: 0.9rem; color: #3a2c1f; }
+.pedido-item-qty { font-size: 0.82rem; color: #a08a72; }
+.pedido-item-price { font-weight: 600; color: #4a3b2c; }
+.pedido-meta { font-size: 0.85rem; color: #7a6248; margin-top: 12px; line-height: 1.7; }
+.pedido-actions { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Tablero de Dibujo | Colorín Papelín</title>
+    <!-- Fuentes idénticas al index -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Iconos Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Tu archivo CSS original para heredar todos los estilos globales -->
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="tablero.css">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <!-- COPIA EXACTA DE TU SIDEBAR ORIGINAL -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-area">
+            <div class="logo">Colorín Papelín</div>
+            <div class="logo-sub">Arte, color & textura</div>
+        </div>
+
+        <div class="nav-menu">
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i> <span>Inicio</span></a>
+            <a href="index.html" class="nav-item"><i class="fas fa-pencil-ruler"></i> <span>Productos</span></a>
+            <a href="index.html" class="nav-item"><i class="fas fa-book"></i> <span>Libretas</span></a>
+            <a href="pedidos.html" class="nav-item"><i class="fas fa-box-open"></i> <span>Mis pedidos</span></a>
+            <button class="nav-item active"><i class="fas fa-paint-brush"></i> <span>Tablero</span></button>
+            <a href="index.html" class="nav-item"><i class="fas fa-tags"></i> <span>Promociones</span></a>
+            <a href="index.html" class="nav-item"><i class="fas fa-paper-plane"></i> <span>Contacto</span></a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content" id="mainContent">
+        <!-- Barra superior idéntica -->
+        <div class="top-bar">
+            <div style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--color-principal); font-weight: 600;">
+                Estudio Creativo ✨
+            </div>
+        </div>
+
+        <!-- GALERÍA DE PLANTILLAS DESTACADAS -->
+        <div class="plantillas-bar">
+            <span class="plantillas-label"><i class="fas fa-wand-magic-sparkles"></i> Ideas para empezar:</span>
+            <div class="plantillas-scroll">
+                <button class="plantilla-chip" onclick="alert('✏️ Empieza dibujando tu portada de bullet journal en el lienzo de abajo.')"><i class="fas fa-book"></i> Portada Bullet Journal</button>
+                <button class="plantilla-chip" onclick="alert('🎉 Empieza dibujando tu invitación en el lienzo de abajo.')"><i class="fas fa-envelope"></i> Invitación de cumpleaños</button>
+                <button class="plantilla-chip" onclick="alert('🏷️ Empieza dibujando tu etiqueta en el lienzo de abajo.')"><i class="fas fa-tag"></i> Etiquetas para regalo</button>
+                <button class="plantilla-chip" onclick="alert('💧 Empieza tu diseño con acuarela en el lienzo de abajo.')"><i class="fas fa-droplet"></i> Fondo acuarela</button>
+                <button class="plantilla-chip" onclick="window.location.href='productos.html'"><i class="fas fa-shirt"></i> ¿Ya tienes tu diseño? Míralo en el catálogo →</button>
+            </div>
+        </div>
+
+        <!-- WORKSPACE DEL TABLERO -->
+        <div class="tablero-workspace">
+            
+            <!-- Controles de dibujo a la izquierda -->
+            <aside class="panel-herramientas">
+                
+                <div class="seccion-control">
+                    <h3>Modo</h3>
+                    <div class="grid-herramientas">
+                        <button class="btn-dibujo activo" data-mode="pincel"><i class="fas fa-paint-brush"></i><span>Pincel</span></button>
+                        <button class="btn-dibujo" data-mode="borrador"><i class="fas fa-eraser"></i><span>Borrador</span></button>
+                        <button class="btn-dibujo" data-mode="relleno" style="grid-column: span 2;"><i class="fas fa-fill-drip"></i><span>Relleno</span></button>
+                    </div>
+                </div>
+
+                <div class="seccion-control">
+                    <h3>Pinceles</h3>
+                    <div class="grid-herramientas">
+                        <button class="btn-dibujo activo" data-brush="normal"><i class="fas fa-pen"></i><span>Normal</span></button>
+                        <button class="btn-dibujo" data-brush="caligrafico"><i class="fas fa-signature"></i><span>Pluma</span></button>
+                        <button class="btn-dibujo" data-brush="spray"><i class="fas fa-spray-can"></i><span>Spray</span></button>
+                        <button class="btn-dibujo" data-brush="rainbow" style="background: linear-gradient(45deg, #ff7675, #ffeaa7, #55efc4, #74b9ff); color: white;">
+                            <i class="fas fa-rainbow" style="color:white;"></i><span>Mágico</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="seccion-control">
+                    <h3>Figuras</h3>
+                    <div class="grid-herramientas">
+                        <button class="btn-dibujo" data-shape="linea"><i class="fas fa-slash"></i><span>Línea</span></button>
+                        <button class="btn-dibujo" data-shape="rectangulo"><i class="fas fa-square-full"></i><span>Rectángulo</span></button>
+                        <button class="btn-dibujo" data-shape="circulo" style="grid-column: span 2;"><i class="fas fa-circle"></i><span>Círculo</span></button>
+                    </div>
+                </div>
+
+                <div class="seccion-control">
+                    <h3>Papel Base</h3>
+                    <div class="grid-herramientas">
+                        <button class="btn-dibujo activo" id="papelBlanco"><span>Liso</span></button>
+                        <button class="btn-dibujo" id="papelCuadricula"><span>Cuadrícula</span></button>
+                        <button class="btn-dibujo" id="papelPuntos" style="grid-column: span 2;"><span>Puntos (Bullet)</span></button>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN DE COLOR OPTIMIZADA CON PALETA COMPLETA Y COLORES POPULARES -->
+                <div class="seccion-control">
+                    <h3>Color y Opacidad</h3>
+                    <div class="input-inline">
+                        <input type="color" id="colorPicker" value="#cb8d62" title="Paleta libre completa">
+                        <div class="input-inline" style="flex:1;">
+                            <input type="range" id="opacidadPincel" min="0.1" max="1" step="0.1" value="1">
+                            <span id="valorOpacidad" class="txt-medida">100%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones rápidos de colores populares -->
+                    <div class="palette-grid">
+                        <button class="color-swatch" style="background-color: #ff7675;" data-color="#ff7675" title="Rojo"></button>
+                        <button class="color-swatch" style="background-color: #ffeaa7;" data-color="#ffeaa7" title="Amarillo"></button>
+                        <button class="color-swatch" style="background-color: #74b9ff;" data-color="#74b9ff" title="Azul"></button>
+                        <button class="color-swatch" style="background-color: #55efc4;" data-color="#55efc4" title="Verde"></button>
+                        <button class="color-swatch" style="background-color: #ff9f43;" data-color="#ff9f43" title="Naranja"></button>
+                        <button class="color-swatch" style="background-color: #a29bfe;" data-color="#a29bfe" title="Morado"></button>
+                        <button class="color-swatch" style="background-color: #fd79a8;" data-color="#fd79a8" title="Rosa"></button>
+                        <button class="color-swatch" style="background-color: #cb8d62;" data-color="#cb8d62" title="Café Principal"></button>
+                        <button class="color-swatch" style="background-color: #2d3436;" data-color="#2d3436" title="Negro"></button>
+                        <button class="color-swatch" style="background-color: #ffffff; border: 1px solid var(--borde);" data-color="#ffffff" title="Blanco"></button>
+                    </div>
+                </div>
+
+                <div class="seccion-control">
+                    <h3>Grosor</h3>
+                    <div class="input-inline">
+                        <input type="range" id="grosorPincel" min="1" max="60" value="8">
+                        <span class="txt-medida" id="valorGrosor">8px</span>
+                    </div>
+                </div>
+
+                <!-- Botones de acción reutilizando tus estilos primarios -->
+                <button class="btn-primary" id="btnGuardar" style="margin-top: auto; padding: 12px; border-radius: 16px;"><i class="fas fa-download"></i> Guardar Dibujo</button>
+                <button class="btn-borrar-todo" id="btnLimpiar"><i class="fas fa-trash-alt"></i> Limpiar Todo</button>
+
+            </aside>
+
+            <!-- El Lienzo de Dibujo a la derecha -->
+            <section class="area-lienzo" id="contenedorTablero">
+                <canvas id="tableroDibujo"></canvas>
+            </section>
+
+        </div>
+
+        <!-- Footer idéntico al index -->
+        <footer>🌈 Colorín Papelín · Donde las ideas encuentran su papel · 2025</footer>
+    </main>
+</div>
+
+<!-- LÓGICA DE PROGRAMACIÓN DEL LIENZO -->
+<script src="tablero.js"></script>
+</body>
+</html>
